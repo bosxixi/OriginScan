@@ -190,8 +190,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     @Binding var scannedCode: String
     @Binding var isPresented: Bool
-    var alertMessage: String = ""
-    var showAlert: Bool = false
     
     private var initialZoom: CGFloat = 1.0
     
@@ -416,60 +414,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             scannedCode = stringValue
             isPresented = false
-
-            // Automatically perform search after scanning
-            DispatchQueue.main.async { [self] in
-                self.fetchIssuingCountry(for: self.scannedCode)
-            }
         }
-    }
-
-    private func fetchIssuingCountry(for barcode: String) {
-        guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)") else {
-            alertMessage = "Invalid URL"
-            showAlert = true
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "Error: \(error.localizedDescription)"
-                    self.showAlert = true
-                }
-                return
-            }
-
-            guard let data = data else {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "No data received"
-                    self.showAlert = true
-                }
-                return
-            }
-
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let issuingCountry = json["issuingCountry"] as? String {
-                    DispatchQueue.main.async { [self] in
-                        self.alertMessage = "The issuing country is: \(issuingCountry)"
-                        self.showAlert = true
-                    }
-                } else {
-                    DispatchQueue.main.async { [self] in
-                        self.alertMessage = "Invalid response format"
-                        self.showAlert = true
-                    }
-                }
-            } catch {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "Error parsing response"
-                    self.showAlert = true
-                }
-            }
-        }
-
-        task.resume()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
