@@ -23,12 +23,16 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "barcode.viewfinder")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 120, height: 120)
-                .foregroundColor(.accentColor)
-                .padding(.top, 40)
+            Button(action: {
+                isScannerPresented = true
+            }) {
+                Image(systemName: "barcode.viewfinder")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 120, height: 120)
+                    .foregroundColor(.accentColor)
+                    .padding(.top, 40)
+            }
             
             Text("OriginScan")
                 .font(.largeTitle)
