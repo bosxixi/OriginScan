@@ -167,11 +167,23 @@ struct BarcodeScannerView: UIViewControllerRepresentable {
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var scanningLine: UIView!
+    var scanningLineAnimation: CABasicAnimation!
+    var overlayView: UIView!
+    var cornerMarkers: [UIView] = []
     
     @Binding var scannedCode: String
     @Binding var isPresented: Bool
     var alertMessage: String = ""
     var showAlert: Bool = false
+    
+    private var initialZoom: CGFloat = 1.0
+    
+    // Constants for the scanning frame
+    private let scanningFrameSize: CGFloat = 250
+    private let cornerMarkerLength: CGFloat = 20
+    private let cornerMarkerThickness: CGFloat = 3
+    private let overlayColor = UIColor.black.withAlphaComponent(0.5)
 
     init(scannedCode: Binding<String>, isPresented: Binding<Bool>) {
         _scannedCode = scannedCode
@@ -221,8 +233,141 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
+        
+        // Setup overlay and scanning frame
+        setupOverlay()
+        setupScanningLine()
+        
+        // Add pinch gesture recognizer
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
+        view.addGestureRecognizer(pinchGesture)
 
         captureSession.startRunning()
+    }
+    
+    private func setupOverlay() {
+        // Create semi-transparent overlay
+        overlayView = UIView(frame: view.bounds)
+        overlayView.backgroundColor = overlayColor
+        view.addSubview(overlayView)
+        
+        // Create clear scanning area
+        let scanningFrame = UIView()
+        let frameX = (view.bounds.width - scanningFrameSize) / 2
+        let frameY = (view.bounds.height - scanningFrameSize) / 2
+        scanningFrame.frame = CGRect(x: frameX, y: frameY, width: scanningFrameSize, height: scanningFrameSize)
+        scanningFrame.backgroundColor = .clear
+        
+        // Create mask for the clear area
+        let maskLayer = CAShapeLayer()
+        let path = UIBezierPath(rect: overlayView.bounds)
+        path.append(UIBezierPath(rect: scanningFrame.frame).reversing())
+        maskLayer.path = path.cgPath
+        maskLayer.fillRule = .evenOdd
+        overlayView.layer.mask = maskLayer
+        
+        // Add corner markers
+        setupCornerMarkers(for: scanningFrame.frame)
+        
+        // Add instruction label
+        let instructionLabel = UILabel()
+        instructionLabel.text = "Position barcode within frame"
+        instructionLabel.textColor = .white
+        instructionLabel.textAlignment = .center
+        instructionLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        instructionLabel.frame = CGRect(x: 0, y: frameY - 40, width: view.bounds.width, height: 20)
+        view.addSubview(instructionLabel)
+    }
+    
+    private func setupCornerMarkers(for frame: CGRect) {
+        // Clear existing markers
+        cornerMarkers.forEach { $0.removeFromSuperview() }
+        cornerMarkers.removeAll()
+        
+        // Create corner markers
+        let corners: [(CGPoint, CGPoint, CGPoint)] = [
+            // Top left
+            (CGPoint(x: frame.minX, y: frame.minY),
+             CGPoint(x: frame.minX + cornerMarkerLength, y: frame.minY),
+             CGPoint(x: frame.minX, y: frame.minY + cornerMarkerLength)),
+            // Top right
+            (CGPoint(x: frame.maxX, y: frame.minY),
+             CGPoint(x: frame.maxX - cornerMarkerLength, y: frame.minY),
+             CGPoint(x: frame.maxX, y: frame.minY + cornerMarkerLength)),
+            // Bottom left
+            (CGPoint(x: frame.minX, y: frame.maxY),
+             CGPoint(x: frame.minX + cornerMarkerLength, y: frame.maxY),
+             CGPoint(x: frame.minX, y: frame.maxY - cornerMarkerLength)),
+            // Bottom right
+            (CGPoint(x: frame.maxX, y: frame.maxY),
+             CGPoint(x: frame.maxX - cornerMarkerLength, y: frame.maxY),
+             CGPoint(x: frame.maxX, y: frame.maxY - cornerMarkerLength))
+        ]
+        
+        for (corner, horizontal, vertical) in corners {
+            // Horizontal line
+            let horizontalLine = createCornerMarker()
+            horizontalLine.frame = CGRect(x: horizontal.x, y: horizontal.y,
+                                        width: cornerMarkerLength, height: cornerMarkerThickness)
+            view.addSubview(horizontalLine)
+            cornerMarkers.append(horizontalLine)
+            
+            // Vertical line
+            let verticalLine = createCornerMarker()
+            verticalLine.frame = CGRect(x: vertical.x, y: vertical.y,
+                                      width: cornerMarkerThickness, height: cornerMarkerLength)
+            view.addSubview(verticalLine)
+            cornerMarkers.append(verticalLine)
+        }
+    }
+    
+    private func createCornerMarker() -> UIView {
+        let marker = UIView()
+        marker.backgroundColor = .white
+        return marker
+    }
+    
+    private func setupScanningLine() {
+        // Create scanning line
+        scanningLine = UIView()
+        scanningLine.backgroundColor = .red
+        scanningLine.frame = CGRect(x: 0, y: view.bounds.midY - 1, width: view.bounds.width, height: 2)
+        view.addSubview(scanningLine)
+        
+        // Create animation
+        scanningLineAnimation = CABasicAnimation(keyPath: "position.y")
+        scanningLineAnimation.fromValue = view.bounds.height * 0.2
+        scanningLineAnimation.toValue = view.bounds.height * 0.8
+        scanningLineAnimation.duration = 2.0
+        scanningLineAnimation.repeatCount = .infinity
+        scanningLineAnimation.autoreverses = true
+        scanningLineAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        // Start animation
+        scanningLine.layer.add(scanningLineAnimation, forKey: "scanningLineAnimation")
+    }
+
+    @objc private func handlePinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        guard let device = (captureSession.inputs.first as? AVCaptureDeviceInput)?.device else { return }
+        
+        switch gesture.state {
+        case .began:
+            initialZoom = device.videoZoomFactor
+        case .changed:
+            let minZoom: CGFloat = 1.0
+            let maxZoom: CGFloat = device.activeFormat.videoMaxZoomFactor
+            let newZoom = min(max(initialZoom * gesture.scale, minZoom), maxZoom)
+            
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = newZoom
+                device.unlockForConfiguration()
+            } catch {
+                print("Error setting zoom: \(error.localizedDescription)")
+            }
+        default:
+            break
+        }
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
