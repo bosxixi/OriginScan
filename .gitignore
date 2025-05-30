@@ -1,0 +1,10 @@
+# Xcode build results
+build/
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Ignore Xcode Breakpoints debug files
+*.xcodeproj/project.xcworkspace/xcshareddata/Breakpoints_v2.xcbkptlist 

@@ -16,21 +16,31 @@ struct ContentView: View {
     @State private var isScannerPresented: Bool = false
 
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
+            Text("OriginScan")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.top, 40)
+
             TextField("Enter barcode manually", text: $barcode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .padding(.horizontal)
 
-            HStack {
+            HStack(spacing: 20) {
                 Button(action: {
-                    isScannerPresented = true // Open camera to scan barcode
+                    isScannerPresented = true
                 }) {
-                    Text("Scan")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    HStack {
+                        Image(systemName: "camera.fill")
+                            .font(.title2)
+                        Text("Scan")
+                            .fontWeight(.semibold)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
                 .sheet(isPresented: $isScannerPresented) {
                     BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented)
@@ -41,28 +51,29 @@ struct ContentView: View {
                         alertMessage = "Please enter a barcode before searching."
                         showAlert = true
                     } else {
-                        fetchIssuingCountry(for: barcode) // Search using the input barcode
+                        fetchIssuingCountry(for: barcode)
                     }
                 }) {
-                    Text("Search")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title2)
+                        Text("Search")
+                            .fontWeight(.semibold)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.secondary)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+
+            Spacer()
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Issuing Country"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
-    }
-
-    private func startScanning() {
-        // Placeholder for barcode scanning logic
-        // Replace with actual camera scanning implementation
-        fetchIssuingCountry(for: barcode)
     }
 
     private func fetchIssuingCountry(for barcode: String) {
