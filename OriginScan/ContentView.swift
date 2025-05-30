@@ -118,42 +118,18 @@ struct ContentView: View {
     }
 
     private func fetchIssuingCountry(for barcode: String) {
-        guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)") else {
-            DispatchQueue.main.async {
-                countryInfo = nil
-                isLoading = false
-            }
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        isLoading = true
+        NetworkService.shared.fetchIssuingCountry(for: barcode) { result in
             DispatchQueue.main.async {
                 isLoading = false
-                
-                if error != nil {
-                    countryInfo = nil
-                    return
-                }
-
-                guard let data = data else {
-                    countryInfo = nil
-                    return
-                }
-
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                       let issuingCountry = json["issuingCountry"] as? String {
-                        countryInfo = CountryInfo(name: issuingCountry, flag: flagEmoji(for: issuingCountry))
-                    } else {
-                        countryInfo = nil
-                    }
-                } catch {
+                switch result {
+                case .success(let issuingCountry):
+                    countryInfo = CountryInfo(name: issuingCountry, flag: flagEmoji(for: issuingCountry))
+                case .failure:
                     countryInfo = nil
                 }
             }
         }
-
-        task.resume()
     }
 
     private func flagEmoji(for country: String) -> String {
