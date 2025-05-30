@@ -34,11 +34,11 @@ struct ContentView: View {
                     .padding(.top, 40)
             }
             
-            Text("OriginScan")
+            Text(NSLocalizedString("OriginScan", comment: ""))
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            TextField("Enter barcode manually", text: $barcode)
+            TextField(NSLocalizedString("Enter barcode manually", comment: ""), text: $barcode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
 
@@ -49,7 +49,7 @@ struct ContentView: View {
                     HStack {
                         Image(systemName: "camera.fill")
                             .font(.title2)
-                        Text("Scan")
+                        Text(NSLocalizedString("Scan", comment: ""))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -84,7 +84,7 @@ struct ContentView: View {
                             Image(systemName: "magnifyingglass")
                                 .font(.title2)
                         }
-                        Text("Search")
+                        Text(NSLocalizedString("Search", comment: ""))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -295,7 +295,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Add instruction label
         let instructionLabel = UILabel()
-        instructionLabel.text = "Position barcode within frame"
+        instructionLabel.text = NSLocalizedString("Position barcode within frame", comment: "")
         instructionLabel.textColor = .white
         instructionLabel.textAlignment = .center
         instructionLabel.font = .systemFont(ofSize: 16, weight: .medium)
