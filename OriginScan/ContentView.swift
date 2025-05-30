@@ -192,10 +192,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     private var initialZoom: CGFloat = 1.0
     
     // Constants for the scanning frame
-    private let scanningFrameSize: CGFloat = 250
+    private let scanningFrameWidth: CGFloat = 300  // Width for 3:2 ratio
+    private let scanningFrameHeight: CGFloat = 200  // Height for 3:2 ratio
     private let cornerMarkerLength: CGFloat = 20
     private let cornerMarkerThickness: CGFloat = 3
     private let overlayColor = UIColor.black.withAlphaComponent(0.5)
+    private let frameTopOffset: CGFloat = 120
 
     init(scannedCode: Binding<String>, isPresented: Binding<Bool>) {
         _scannedCode = scannedCode
@@ -265,9 +267,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Create clear scanning area
         let scanningFrame = UIView()
-        let frameX = (view.bounds.width - scanningFrameSize) / 2
-        let frameY = (view.bounds.height - scanningFrameSize) / 2
-        scanningFrame.frame = CGRect(x: frameX, y: frameY, width: scanningFrameSize, height: scanningFrameSize)
+        let frameX = (view.bounds.width - scanningFrameWidth) / 2
+        let frameY = frameTopOffset
+        scanningFrame.frame = CGRect(x: frameX, y: frameY, width: scanningFrameWidth, height: scanningFrameHeight)
         scanningFrame.backgroundColor = .clear
         
         // Create mask for the clear area
@@ -289,6 +291,17 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         instructionLabel.font = .systemFont(ofSize: 16, weight: .medium)
         instructionLabel.frame = CGRect(x: 0, y: frameY - 40, width: view.bounds.width, height: 20)
         view.addSubview(instructionLabel)
+        
+        // Add close button
+        let closeButton = UIButton(type: .system)
+        closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        closeButton.tintColor = .white
+        closeButton.frame = CGRect(x: view.bounds.width - 70, y: 30, width: 50, height: 50)
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        closeButton.configuration = config
+        closeButton.addTarget(self, action: #selector(dismissScanner), for: .touchUpInside)
+        view.addSubview(closeButton)
     }
     
     private func setupCornerMarkers(for frame: CGRect) {
@@ -340,16 +353,20 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func setupScanningLine() {
-        // Create scanning line
+        // Remove old scanning line if it exists
+        scanningLine?.removeFromSuperview()
         scanningLine = UIView()
         scanningLine.backgroundColor = .red
-        scanningLine.frame = CGRect(x: 0, y: view.bounds.midY - 1, width: view.bounds.width, height: 2)
+        // Match scanning frame's width and horizontal position
+        let frameX = (view.bounds.width - scanningFrameWidth) / 2
+        let frameY = frameTopOffset
+        scanningLine.frame = CGRect(x: frameX, y: frameY, width: scanningFrameWidth, height: 2)
         view.addSubview(scanningLine)
         
-        // Create animation
+        // Create animation within scanning frame
         scanningLineAnimation = CABasicAnimation(keyPath: "position.y")
-        scanningLineAnimation.fromValue = view.bounds.height * 0.2
-        scanningLineAnimation.toValue = view.bounds.height * 0.8
+        scanningLineAnimation.fromValue = frameY + 1
+        scanningLineAnimation.toValue = frameY + scanningFrameHeight - 1
         scanningLineAnimation.duration = 2.0
         scanningLineAnimation.repeatCount = .infinity
         scanningLineAnimation.autoreverses = true
@@ -380,6 +397,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         default:
             break
         }
+    }
+
+    @objc private func dismissScanner() {
+        isPresented = false
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
