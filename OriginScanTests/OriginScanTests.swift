@@ -7,6 +7,7 @@
 
 import Testing
 @testable import OriginScan
+import Foundation
 
 struct OriginScanTests {
 

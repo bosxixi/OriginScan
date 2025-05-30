@@ -9,6 +9,29 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>OriginScanTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A9D2D2A42DE87460006AF9BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9D2D2B42DE87462006AF9BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9D2D2BE2DE87462006AF9BE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>
