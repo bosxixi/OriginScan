@@ -8,11 +8,16 @@
 import SwiftUI
 import AVFoundation
 
+struct CountryInfo: Identifiable {
+    let id = UUID()
+    let name: String
+    let flag: String
+}
+
 struct ContentView: View {
     @State private var barcode: String = ""
     @State private var isScanning: Bool = false
-    @State private var alertMessage: String = ""
-    @State private var showAlert: Bool = false
+    @State private var countryInfo: CountryInfo?
     @State private var isScannerPresented: Bool = false
 
     var body: some View {
@@ -48,8 +53,7 @@ struct ContentView: View {
 
                 Button(action: {
                     if barcode.isEmpty {
-                        alertMessage = "Please enter a barcode before searching."
-                        showAlert = true
+                        countryInfo = nil
                     } else {
                         fetchIssuingCountry(for: barcode)
                     }
@@ -69,33 +73,43 @@ struct ContentView: View {
             }
             .padding(.horizontal)
 
+            if let country = countryInfo {
+                VStack(spacing: 15) {
+                    Text(country.flag)
+                        .font(.system(size: 100))
+                    
+                    Text(country.name)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .cornerRadius(15)
+                .shadow(radius: 5)
+                .padding()
+            }
+
             Spacer()
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Issuing Country"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 
     private func fetchIssuingCountry(for barcode: String) {
         guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)") else {
-            alertMessage = "Invalid URL"
-            showAlert = true
+            countryInfo = nil
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "Error: \(error.localizedDescription)"
-                    self.showAlert = true
+                DispatchQueue.main.async {
+                    countryInfo = nil
                 }
                 return
             }
 
             guard let data = data else {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "No data received"
-                    self.showAlert = true
+                DispatchQueue.main.async {
+                    countryInfo = nil
                 }
                 return
             }
@@ -103,25 +117,38 @@ struct ContentView: View {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                    let issuingCountry = json["issuingCountry"] as? String {
-                    DispatchQueue.main.async { [self] in
-                        self.alertMessage = "The issuing country is: \(issuingCountry)"
-                        self.showAlert = true
+                    DispatchQueue.main.async {
+                        countryInfo = CountryInfo(name: issuingCountry, flag: flagEmoji(for: issuingCountry))
                     }
                 } else {
-                    DispatchQueue.main.async { [self] in
-                        self.alertMessage = "Invalid response format"
-                        self.showAlert = true
+                    DispatchQueue.main.async {
+                        countryInfo = nil
                     }
                 }
             } catch {
-                DispatchQueue.main.async { [self] in
-                    self.alertMessage = "Error parsing response"
-                    self.showAlert = true
+                DispatchQueue.main.async {
+                    countryInfo = nil
                 }
             }
         }
 
         task.resume()
+    }
+
+    private func flagEmoji(for country: String) -> String {
+        let base: UInt32 = 127397 // Unicode scalar for regional indicator symbol letter A
+        var flagString = ""
+        
+        // Convert country name to country code (you might need to add more mappings)
+        let countryCode = country.prefix(2).uppercased()
+        
+        for scalar in countryCode.unicodeScalars {
+            if let scalarValue = UnicodeScalar(base + scalar.value) {
+                flagString.append(String(scalarValue))
+            }
+        }
+        
+        return flagString
     }
 }
 
