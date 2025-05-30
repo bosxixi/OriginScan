@@ -59,7 +59,12 @@ struct ContentView: View {
                     .cornerRadius(10)
                 }
                 .sheet(isPresented: $isScannerPresented) {
-                    BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented)
+                    BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
+                        if !scannedCode.isEmpty {
+                            isLoading = true
+                            fetchIssuingCountry(for: scannedCode)
+                        }
+                    }
                 }
 
                 Button(action: {
@@ -171,9 +176,10 @@ struct ContentView: View {
 struct BarcodeScannerView: UIViewControllerRepresentable {
     @Binding var scannedCode: String
     @Binding var isPresented: Bool
+    var onScanComplete: (String) -> Void
 
     func makeUIViewController(context: Context) -> UIViewController {
-        let viewController = ScannerViewController(scannedCode: $scannedCode, isPresented: $isPresented)
+        let viewController = ScannerViewController(scannedCode: $scannedCode, isPresented: $isPresented, onScanComplete: onScanComplete)
         return viewController
     }
 
@@ -190,6 +196,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     @Binding var scannedCode: String
     @Binding var isPresented: Bool
+    var onScanComplete: (String) -> Void
     
     private var initialZoom: CGFloat = 1.0
     
@@ -201,9 +208,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     private let overlayColor = UIColor.black.withAlphaComponent(0.5)
     private let frameTopOffset: CGFloat = 120
 
-    init(scannedCode: Binding<String>, isPresented: Binding<Bool>) {
+    init(scannedCode: Binding<String>, isPresented: Binding<Bool>, onScanComplete: @escaping (String) -> Void) {
         _scannedCode = scannedCode
         _isPresented = isPresented
+        self.onScanComplete = onScanComplete
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -414,6 +422,13 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             scannedCode = stringValue
             isPresented = false
+            
+            // Automatically trigger search after scanning
+            if !stringValue.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.onScanComplete(stringValue)
+                }
+            }
         }
     }
 
