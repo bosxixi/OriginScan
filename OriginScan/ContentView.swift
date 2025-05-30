@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var isScanning: Bool = false
     @State private var countryInfo: CountryInfo?
     @State private var isScannerPresented: Bool = false
+    @State private var isLoading: Bool = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -55,21 +56,29 @@ struct ContentView: View {
                     if barcode.isEmpty {
                         countryInfo = nil
                     } else {
+                        isLoading = true
                         fetchIssuingCountry(for: barcode)
                     }
                 }) {
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .font(.title2)
+                        if isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                .scaleEffect(0.8)
+                        } else {
+                            Image(systemName: "magnifyingglass")
+                                .font(.title2)
+                        }
                         Text("Search")
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.secondary)
+                    .background(isLoading ? Color.secondary.opacity(0.7) : Color.secondary)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
+                .disabled(isLoading)
             }
             .padding(.horizontal)
 
@@ -95,38 +104,35 @@ struct ContentView: View {
 
     private func fetchIssuingCountry(for barcode: String) {
         guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)") else {
-            countryInfo = nil
+            DispatchQueue.main.async {
+                countryInfo = nil
+                isLoading = false
+            }
             return
         }
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                isLoading = false
+                
+                if let error = error {
                     countryInfo = nil
+                    return
                 }
-                return
-            }
 
-            guard let data = data else {
-                DispatchQueue.main.async {
+                guard let data = data else {
                     countryInfo = nil
+                    return
                 }
-                return
-            }
 
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                   let issuingCountry = json["issuingCountry"] as? String {
-                    DispatchQueue.main.async {
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let issuingCountry = json["issuingCountry"] as? String {
                         countryInfo = CountryInfo(name: issuingCountry, flag: flagEmoji(for: issuingCountry))
-                    }
-                } else {
-                    DispatchQueue.main.async {
+                    } else {
                         countryInfo = nil
                     }
-                }
-            } catch {
-                DispatchQueue.main.async {
+                } catch {
                     countryInfo = nil
                 }
             }
