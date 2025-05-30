@@ -1,5 +1,5 @@
-"OriginScan" = "Scan d'origine";
-"Enter barcode manually" = "Entrer le code-barres manuellement";
-"Scan" = "Scanner";
-"Search" = "Rechercher";
-"Position barcode within frame" = "Positionnez le code-barres dans le cadre"; 
+"originScan" = "Scan d'origine";
+"enterBarcodeManually" = "Entrer le code-barres manuellement";
+"scan" = "Scanner";
+"search" = "Rechercher";
+"positionBarcodeWithinFrame" = "Positionnez le code-barres dans le cadre"; 

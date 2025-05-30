@@ -1,5 +1,5 @@
-"OriginScan" = "产地扫描";
-"Enter barcode manually" = "手动输入条形码";
-"Scan" = "扫描";
-"Search" = "搜索";
-"Position barcode within frame" = "将条形码对准框内"; 
+"originScan" = "产地扫描";
+"enterBarcodeManually" = "手动输入条形码";
+"scan" = "扫描";
+"search" = "搜索";
+"positionBarcodeWithinFrame" = "将条形码对准框内"; 

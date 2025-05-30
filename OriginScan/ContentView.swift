@@ -34,11 +34,11 @@ struct ContentView: View {
                     .padding(.top, 40)
             }
             
-            Text(NSLocalizedString("OriginScan", comment: ""))
+            Text(NSLocalizedString("originScan", comment: ""))
                 .font(.largeTitle)
                 .fontWeight(.bold)
 
-            TextField(NSLocalizedString("Enter barcode manually", comment: ""), text: $barcode)
+            TextField(NSLocalizedString("enterBarcodeManually", comment: ""), text: $barcode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
 
@@ -49,7 +49,7 @@ struct ContentView: View {
                     HStack {
                         Image(systemName: "camera.fill")
                             .font(.title2)
-                        Text(NSLocalizedString("Scan", comment: ""))
+                        Text(NSLocalizedString("scan", comment: ""))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -84,7 +84,7 @@ struct ContentView: View {
                             Image(systemName: "magnifyingglass")
                                 .font(.title2)
                         }
-                        Text(NSLocalizedString("Search", comment: ""))
+                        Text(NSLocalizedString("search", comment: ""))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -295,7 +295,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Add instruction label
         let instructionLabel = UILabel()
-        instructionLabel.text = NSLocalizedString("Position barcode within frame", comment: "")
+        instructionLabel.text = NSLocalizedString("positionBarcodeWithinFrame", comment: "")
         instructionLabel.textColor = .white
         instructionLabel.textAlignment = .center
         instructionLabel.font = .systemFont(ofSize: 16, weight: .medium)
