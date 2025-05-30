@@ -23,10 +23,16 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            Image(systemName: "barcode.viewfinder")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
+                .foregroundColor(.accentColor)
+                .padding(.top, 40)
+            
             Text("OriginScan")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .padding(.top, 40)
 
             TextField("Enter barcode manually", text: $barcode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -115,7 +121,7 @@ struct ContentView: View {
             DispatchQueue.main.async {
                 isLoading = false
                 
-                if let error = error {
+                if error != nil {
                     countryInfo = nil
                     return
                 }
@@ -310,7 +316,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
              CGPoint(x: frame.maxX, y: frame.maxY - cornerMarkerLength))
         ]
         
-        for (corner, horizontal, vertical) in corners {
+        for (_, horizontal, vertical) in corners {
             // Horizontal line
             let horizontalLine = createCornerMarker()
             horizontalLine.frame = CGRect(x: horizontal.x, y: horizontal.y,
