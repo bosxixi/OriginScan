@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     min-height: 80vh;
+    gap: 4rem;
 }
 
 .hero-container {
@@ -15,18 +16,18 @@
 .hero-content {
     max-width: 600px;
     text-align: left;
-    padding-right: 4rem;
+    padding-right: 2rem;
 }
 
-.hero-title {
+.hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
     color: #333;
     line-height: 1.2;
 }
 
-.hero-subtitle {
-    font-size: 1.5rem;
+.hero-content p {
+    font-size: 1.25rem;
     margin-bottom: 2rem;
     color: #666;
     line-height: 1.6;
@@ -35,6 +36,7 @@
 .cta-buttons {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .cta-primary {
@@ -46,6 +48,7 @@
     border-radius: 8px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
 }
 
 .cta-primary:hover {
@@ -62,6 +65,7 @@
     border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .cta-secondary:hover {
@@ -100,16 +104,32 @@
     opacity: 1;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
+    .hero {
+        padding: 4rem 2rem;
+        gap: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-image {
+        width: 350px;
+        height: 700px;
+    }
+}
+
+@media (max-width: 992px) {
     .hero {
         flex-direction: column;
         text-align: center;
         padding: 4rem 2rem;
+        gap: 3rem;
     }
 
     .hero-content {
         padding-right: 0;
-        margin-bottom: 3rem;
         text-align: center;
     }
 
@@ -124,16 +144,51 @@
 }
 
 @media (max-width: 768px) {
-    .hero-title {
+    .hero {
+        padding: 3rem 1.5rem;
+    }
+
+    .hero-content h1 {
         font-size: 2.5rem;
     }
 
-    .hero-subtitle {
-        font-size: 1.2rem;
+    .hero-content p {
+        font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-primary,
+    .cta-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
     }
 
     .hero-image {
         width: 250px;
         height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-image {
+        width: 200px;
+        height: 400px;
     }
 } 
