@@ -147,8 +147,12 @@ struct ContentView: View {
                     let code = String(issuingCountry.prefix(2)).uppercased()
                     let displayNames = CountryUtils.displayNames(for: code)
                     countryInfo = CountryInfo(englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
-                case .failure:
+                    // Log successful country search
+                    LogService.shared.logCountrySearch(barcode: barcode, country: displayNames.english)
+                case .failure(let error):
                     countryInfo = nil
+                    // Log error
+                    LogService.shared.logError(error: error, context: "fetchIssuingCountry")
                 }
             }
         }
