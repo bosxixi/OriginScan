@@ -25,6 +25,8 @@ struct ContentView: View {
     @State private var showPurchaseView: Bool = false
     @State private var showHistoryView: Bool = false
     @StateObject private var purchaseService = PurchaseService.shared
+    @AppStorage("autoSearchAfterScan") private var autoSearchAfterScan: Bool = true
+    @FocusState private var isBarcodeFieldFocused: Bool
 
     var body: some View {
         VStack(spacing: 20) {
@@ -36,7 +38,7 @@ struct ContentView: View {
                 Button(action: {
                     isMenuPresented = true
                 }) {
-                    Image(systemName: "line.horizontal.3")
+                    Image(systemName: "gear")
                         .font(.title)
                         .foregroundColor(.accentColor)
                 }
@@ -64,6 +66,7 @@ struct ContentView: View {
             TextField(NSLocalizedString("enterBarcodeManually", comment: ""), text: $barcode)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
+                .focused($isBarcodeFieldFocused)
 
             HStack(spacing: 20) {
                 Button(action: {
@@ -79,26 +82,30 @@ struct ContentView: View {
                         Text(NSLocalizedString("scan", comment: ""))
                             .fontWeight(.semibold)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.accentColor)
-                .foregroundColor(.white)
-                .cornerRadius(10)
             }
             .sheet(isPresented: $isScannerPresented) {
                 BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
                     if !scannedCode.isEmpty {
-                        isLoading = true
-                        purchaseService.useScan()
-                        fetchIssuingCountry(for: scannedCode)
+                        if autoSearchAfterScan {
+                            isLoading = true
+                            purchaseService.useScan()
+                            fetchIssuingCountry(for: scannedCode)
+                        } else {
+                            barcode = scannedCode
+                        }
                     }
                 }
             }
 
             Button(action: {
                 if barcode.isEmpty {
-                    countryInfo = nil
+                    isBarcodeFieldFocused = true
                 } else if purchaseService.canScan() {
                     isLoading = true
                     purchaseService.useScan()
@@ -174,7 +181,7 @@ struct ContentView: View {
                     // Log successful country search
                     LogService.shared.logCountrySearch(barcode: barcode, country: displayNames.english)
                     // Save to history
-                    let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, flag: flagEmoji(for: code), barcode: barcode)
+                    let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, localizedCountryName: displayNames.localized, flag: flagEmoji(for: code), barcode: barcode)
                     ScanHistoryService.shared.add(item: historyItem)
                 case .failure(let error):
                     countryInfo = nil
@@ -215,13 +222,29 @@ struct MenuView: View {
                 showSettings = true
             }
         }
-        .navigationTitle("Menu")
+        .navigationTitle("Settings")
         .navigationBarItems(trailing: Button("Close") {
             dismiss()
         })
         .sheet(isPresented: $showSettings) {
-            Text("Settings Page")
-                .padding()
+            SettingsView()
+        }
+    }
+}
+
+struct SettingsView: View {
+    @AppStorage("autoSearchAfterScan") private var autoSearchAfterScan: Bool = true
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationView {
+            Form {
+                Toggle("Auto search after barcode detection", isOn: $autoSearchAfterScan)
+            }
+            .navigationTitle("Settings")
+            .navigationBarItems(trailing: Button("Close") {
+                dismiss()
+            })
         }
     }
 }

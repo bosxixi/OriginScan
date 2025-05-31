@@ -4,14 +4,16 @@ struct ScanHistoryItem: Identifiable, Codable {
     let id: UUID
     let countryCode: String
     let countryName: String
+    let localizedCountryName: String
     let flag: String
     let barcode: String
     let scanDate: Date
     
-    init(countryCode: String, countryName: String, flag: String, barcode: String, scanDate: Date = Date()) {
+    init(countryCode: String, countryName: String, localizedCountryName: String, flag: String, barcode: String, scanDate: Date = Date()) {
         self.id = UUID()
         self.countryCode = countryCode
         self.countryName = countryName
+        self.localizedCountryName = localizedCountryName
         self.flag = flag
         self.barcode = barcode
         self.scanDate = scanDate
@@ -29,7 +31,19 @@ class ScanHistoryService: ObservableObject {
     }
     
     func add(item: ScanHistoryItem) {
-        items.insert(item, at: 0)
+        if let first = items.first, first.barcode == item.barcode {
+            // Update scanDate of the last item
+            items[0] = ScanHistoryItem(
+                countryCode: first.countryCode,
+                countryName: first.countryName,
+                localizedCountryName: first.localizedCountryName,
+                flag: first.flag,
+                barcode: first.barcode,
+                scanDate: item.scanDate
+            )
+        } else {
+            items.insert(item, at: 0)
+        }
         save()
     }
     

@@ -3,6 +3,7 @@ import SwiftUI
 struct HistoryView: View {
     @ObservedObject private var historyService = ScanHistoryService.shared
     @Environment(\.dismiss) private var dismiss
+    @State private var showClearConfirmation: Bool = false
     
     var body: some View {
         NavigationView {
@@ -29,6 +30,11 @@ struct HistoryView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(item.countryName)
                                         .font(.headline)
+                                    if item.localizedCountryName != item.countryName {
+                                        Text(item.localizedCountryName)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
                                     Text(item.barcode)
                                         .font(.subheadline)
                                         .foregroundColor(.secondary)
@@ -52,12 +58,20 @@ struct HistoryView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !historyService.items.isEmpty {
                         Button(role: .destructive) {
-                            historyService.clear()
+                            showClearConfirmation = true
                         } label: {
                             Label("Clear", systemImage: "trash")
                         }
                     }
                 }
+            }
+            .alert("Clear History", isPresented: $showClearConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Clear", role: .destructive) {
+                    historyService.clear()
+                }
+            } message: {
+                Text("Are you sure you want to clear all history?")
             }
         }
     }
