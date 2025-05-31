@@ -174,7 +174,6 @@ struct ContentView: View {
 struct MenuView: View {
     @Binding var isPresented: Bool
     @State private var showSettings: Bool = false
-    @State private var showAbout: Bool = false
     @State private var showHistory: Bool = false
 
     var body: some View {
@@ -182,9 +181,6 @@ struct MenuView: View {
             List {
                 Button("Settings") {
                     showSettings = true
-                }
-                Button("About") {
-                    showAbout = true
                 }
                 Button("History") {
                     showHistory = true
@@ -197,9 +193,6 @@ struct MenuView: View {
             .sheet(isPresented: $showSettings) {
                 Text("Settings Page")
                     .padding()
-            }
-            .sheet(isPresented: $showAbout) {
-                AboutView()
             }
             .sheet(isPresented: $showHistory) {
                 Text("History Page")
