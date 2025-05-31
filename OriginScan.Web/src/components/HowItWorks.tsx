@@ -22,15 +22,17 @@ const HowItWorks: React.FC = () => {
 
   return (
     <section id="how-it-works" className="how-it-works">
-      <h2>How It Works</h2>
-      <div className="steps">
-        {steps.map((step, index) => (
-          <div key={index} className="step">
-            <div className="step-number">{step.number}</div>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </div>
-        ))}
+      <div className="how-it-works-container">
+        <h2 className="how-it-works-title">How It Works</h2>
+        <div className="steps-container">
+          {steps.map((step, index) => (
+            <div key={index} className="step">
+              <div className="step-number">{step.number}</div>
+              <h3 className="step-title">{step.title}</h3>
+              <p className="step-description">{step.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
