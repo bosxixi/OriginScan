@@ -4,6 +4,31 @@ class LogService {
     static let shared = LogService()
     private let baseURL = "https://scorpioplayer.com"
     
+    // Persistent user ID (GUID)
+    private var persistentUserId: String {
+        if let existingId = UserDefaults.standard.string(forKey: "persistentUserId") {
+            return existingId
+        } else {
+            let newId = UUID().uuidString
+            UserDefaults.standard.set(newId, forKey: "persistentUserId")
+            return newId
+        }
+    }
+    
+    // Hashed version of the user ID (6 alphanumeric uppercase)
+    private var hashedUserId: String {
+        let data = persistentUserId.data(using: .utf8)!
+        let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> UInt32 in
+            var hash: UInt32 = 5381
+            for byte in bytes {
+                hash = ((hash << 5) &+ hash) &+ UInt32(byte)
+            }
+            return hash
+        }
+        let hashString = String(format: "%06X", abs(Int(hash)) % 0x1000000)
+        return hashString
+    }
+    
     private init() {}
     
     /// Helper to get the current app version from the bundle
@@ -28,9 +53,11 @@ class LogService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        // Merge app version into properties
+        // Merge app version, persistent user ID, and hashed user ID into properties
         var mergedProperties = properties
         mergedProperties["appVersion"] = appVersion
+        mergedProperties["userId"] = persistentUserId
+        mergedProperties["hashedUserId"] = hashedUserId
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: mergedProperties)
