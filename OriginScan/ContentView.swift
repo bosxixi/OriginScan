@@ -21,9 +21,21 @@ struct ContentView: View {
     @State private var countryInfo: CountryInfo?
     @State private var isScannerPresented: Bool = false
     @State private var isLoading: Bool = false
+    @State private var isMenuPresented: Bool = false
 
     var body: some View {
         VStack(spacing: 20) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    isMenuPresented = true
+                }) {
+                    Image(systemName: "line.horizontal.3")
+                        .font(.title)
+                        .foregroundColor(.accentColor)
+                }
+                .padding(.trailing)
+            }
             Button(action: {
                 isScannerPresented = true
             }) {
@@ -120,6 +132,9 @@ struct ContentView: View {
 
             Spacer()
         }
+        .sheet(isPresented: $isMenuPresented) {
+            MenuView(isPresented: $isMenuPresented)
+        }
     }
 
     private func fetchIssuingCountry(for barcode: String) {
@@ -153,6 +168,45 @@ struct ContentView: View {
         }
         
         return flagString
+    }
+}
+
+struct MenuView: View {
+    @Binding var isPresented: Bool
+    @State private var showSettings: Bool = false
+    @State private var showAbout: Bool = false
+    @State private var showHistory: Bool = false
+
+    var body: some View {
+        NavigationView {
+            List {
+                Button("Settings") {
+                    showSettings = true
+                }
+                Button("About") {
+                    showAbout = true
+                }
+                Button("History") {
+                    showHistory = true
+                }
+            }
+            .navigationTitle("Menu")
+            .navigationBarItems(trailing: Button("Close") {
+                isPresented = false
+            })
+            .sheet(isPresented: $showSettings) {
+                Text("Settings Page")
+                    .padding()
+            }
+            .sheet(isPresented: $showAbout) {
+                Text("About Page")
+                    .padding()
+            }
+            .sheet(isPresented: $showHistory) {
+                Text("History Page")
+                    .padding()
+            }
+        }
     }
 }
 
