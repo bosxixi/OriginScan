@@ -88,6 +88,7 @@ class LogService {
         mergedProperties["language"] = userLanguage
         mergedProperties["country"] = userCountry
         mergedProperties["remainingScans"] = String(PurchaseService.shared.remainingScans)
+        mergedProperties["hasGrantedCameraPermission"] = String(CameraPermissionService.shared.hasGrantedCameraPermission)
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: mergedProperties)

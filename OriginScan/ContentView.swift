@@ -26,7 +26,9 @@ struct ContentView: View {
     @State private var showHistoryView: Bool = false
     @StateObject private var purchaseService = PurchaseService.shared
     @AppStorage("autoSearchAfterScan") private var autoSearchAfterScan: Bool = true
+    @AppStorage("quickScan") private var quickScan: Bool = false
     @FocusState private var isBarcodeFieldFocused: Bool
+    @State private var isViewReady: Bool = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -46,6 +48,20 @@ struct ContentView: View {
             }
             .onAppear {
                 LogService.shared.logIPADisplayName(displayName: NSLocalizedString("originScan", comment: ""))
+                
+                // Mark view as ready after a short delay
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    isViewReady = true
+                }
+            }
+            .onChange(of: isViewReady) { newValue in
+                if newValue && quickScan {
+                    if purchaseService.canScan() {
+                        isScannerPresented = true
+                    } else {
+                        showPurchaseView = true
+                    }
+                }
             }
             Button(action: {
                 LogService.shared.logClick(itemId: "scanButton", itemType: "scan")

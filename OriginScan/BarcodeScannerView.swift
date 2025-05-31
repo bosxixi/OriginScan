@@ -50,6 +50,27 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Check camera permission
+        let status = CameraPermissionService.shared.checkCameraPermission()
+        switch status {
+        case .notDetermined:
+            CameraPermissionService.shared.requestCameraPermission { [weak self] granted in
+                if granted {
+                    self?.setupCamera()
+                } else {
+                    self?.dismissScanner()
+                }
+            }
+        case .restricted, .denied:
+            dismissScanner()
+        case .authorized:
+            setupCamera()
+        @unknown default:
+            dismissScanner()
+        }
+    }
+    
+    private func setupCamera() {
         captureSession = AVCaptureSession()
 
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {

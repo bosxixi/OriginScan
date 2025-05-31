@@ -12,6 +12,9 @@ struct MenuView: View {
             NavigationLink(destination: SettingsView()) {
                 Label(NSLocalizedString("settings", comment: ""), systemImage: "gear")
             }
+            NavigationLink(destination: AboutView()) {
+                Label(NSLocalizedString("about", comment: ""), systemImage: "info.circle")
+            }
         }
         .navigationTitle(NSLocalizedString("settings", comment: ""))
         .navigationBarItems(trailing: Button(NSLocalizedString("close", comment: "")) {
