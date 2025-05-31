@@ -2,4 +2,8 @@
 "enterBarcodeManually" = "أدخل الباركود يدويًا";
 "scan" = "مسح";
 "search" = "بحث";
-"positionBarcodeWithinFrame" = "ضع الباركود داخل الإطار"; 
+"positionBarcodeWithinFrame" = "ضع الباركود داخل الإطار";
+"history" = "التاريخ";
+"settings" = "الإعدادات";
+"close" = "إغلاق";
+"scansRemaining" = "الفحوصات المتبقية"; 

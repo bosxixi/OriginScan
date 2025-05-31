@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "ป้อนบาร์โค้ดด้วยตนเอง";
 "scan" = "สแกน";
 "search" = "ค้นหา";
-"positionBarcodeWithinFrame" = "วางบาร์โค้ดภายในกรอบ"; 
+"positionBarcodeWithinFrame" = "วางบาร์โค้ดภายในกรอบ";
+"history" = "ประวัติ";
+"settings" = "ตั้งค่า";
+"close" = "ปิด";
+"scansRemaining" = "จำนวนการสแกนที่เหลือ";
+"autoSearchAfterScan" = "ค้นหาอัตโนมัติหลังการสแกน";
+"autoSearchAfterScanDescription" = "เมื่อเปิดใช้งาน แอปจะค้นหาประเทศต้นทางโดยอัตโนมัติหลังจากสแกนบาร์โค้ด"; 

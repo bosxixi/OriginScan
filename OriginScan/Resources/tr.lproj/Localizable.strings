@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "Barkodu manuel olarak girin";
 "scan" = "Tara";
 "search" = "Ara";
-"positionBarcodeWithinFrame" = "Barkodu çerçeve içine yerleştirin"; 
+"positionBarcodeWithinFrame" = "Barkodu çerçeve içine yerleştirin";
+"history" = "Geçmiş";
+"settings" = "Ayarlar";
+"close" = "Kapat";
+"scansRemaining" = "Kalan Tarama";
+"autoSearchAfterScan" = "Taramadan Sonra Otomatik Ara";
+"autoSearchAfterScanDescription" = "Etkinleştirildiğinde, uygulama bir barkodu taradıktan sonra menşe ülkeyi otomatik olarak arayacaktır."; 

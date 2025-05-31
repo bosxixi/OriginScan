@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "バーコードを手動で入力";
 "scan" = "スキャン";
 "search" = "検索";
-"positionBarcodeWithinFrame" = "バーコードをフレーム内に配置"; 
+"positionBarcodeWithinFrame" = "バーコードをフレーム内に配置";
+"history" = "履歴";
+"settings" = "設定";
+"close" = "閉じる";
+"scansRemaining" = "残りのスキャン";
+"autoSearchAfterScan" = "スキャン後自動検索";
+"autoSearchAfterScanDescription" = "有効にすると、バーコードをスキャンした後に原産国を自動的に検索します。"; 

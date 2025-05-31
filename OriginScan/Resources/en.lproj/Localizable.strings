@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "Enter barcode manually";
 "scan" = "Scan";
 "search" = "Search";
-"positionBarcodeWithinFrame" = "Position barcode within frame"; 
+"positionBarcodeWithinFrame" = "Position barcode within frame";
+"history" = "History";
+"settings" = "Settings";
+"close" = "Close";
+"scansRemaining" = "Scans Remaining";
+"autoSearchAfterScan" = "Auto Search After Scan";
+"autoSearchAfterScanDescription" = "When enabled, the app will automatically search for the country of origin after scanning a barcode."; 

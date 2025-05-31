@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "Введите штрих-код вручную";
 "scan" = "Сканировать";
 "search" = "Поиск";
-"positionBarcodeWithinFrame" = "Поместите штрих-код в рамку"; 
+"positionBarcodeWithinFrame" = "Поместите штрих-код в рамку";
+"history" = "История";
+"settings" = "Настройки";
+"close" = "Закрыть";
+"scansRemaining" = "Осталось сканирований";
+"autoSearchAfterScan" = "Автоматический поиск после сканирования";
+"autoSearchAfterScanDescription" = "Когда включено, приложение будет автоматически искать страну происхождения после сканирования штрих-кода."; 

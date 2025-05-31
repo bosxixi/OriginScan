@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "बारकोड मैन्युअल रूप से दर्ज करें";
 "scan" = "स्कैन";
 "search" = "खोज";
-"positionBarcodeWithinFrame" = "बारकोड को फ्रेम के अंदर रखें"; 
+"positionBarcodeWithinFrame" = "बारकोड को फ्रेम के अंदर रखें";
+"history" = "इतिहास";
+"settings" = "सेटिंग्स";
+"close" = "बंद करें";
+"scansRemaining" = "शेष स्कैन";
+"autoSearchAfterScan" = "स्कैन के बाद स्वचालित खोज";
+"autoSearchAfterScanDescription" = "सक्षम होने पर, ऐप बारकोड स्कैन करने के बाद मूल देश को स्वचालित रूप से खोजेगा।"; 

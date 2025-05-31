@@ -31,7 +31,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("\(purchaseService.remainingScans) scans remaining")
+                Text(NSLocalizedString("scansRemaining", comment: "") + ": \(purchaseService.remainingScans)")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 Spacer()
@@ -206,46 +206,6 @@ struct ContentView: View {
         }
         
         return flagString
-    }
-}
-
-struct MenuView: View {
-    @State private var showSettings: Bool = false
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        List {
-            NavigationLink(destination: HistoryView()) {
-                Label("History", systemImage: "clock.arrow.circlepath")
-            }
-            Button("Settings") {
-                showSettings = true
-            }
-        }
-        .navigationTitle("Settings")
-        .navigationBarItems(trailing: Button("Close") {
-            dismiss()
-        })
-        .sheet(isPresented: $showSettings) {
-            SettingsView()
-        }
-    }
-}
-
-struct SettingsView: View {
-    @AppStorage("autoSearchAfterScan") private var autoSearchAfterScan: Bool = true
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationView {
-            Form {
-                Toggle("Auto search after barcode detection", isOn: $autoSearchAfterScan)
-            }
-            .navigationTitle("Settings")
-            .navigationBarItems(trailing: Button("Close") {
-                dismiss()
-            })
-        }
     }
 }
 

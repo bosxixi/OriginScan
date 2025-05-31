@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "Barcode manuell eingeben";
 "scan" = "Scannen";
 "search" = "Suchen";
-"positionBarcodeWithinFrame" = "Barcode im Rahmen positionieren"; 
+"positionBarcodeWithinFrame" = "Barcode im Rahmen positionieren";
+"history" = "Verlauf";
+"settings" = "Einstellungen";
+"close" = "Schließen";
+"scansRemaining" = "Verbleibende Scans";
+"autoSearchAfterScan" = "Automatische Suche nach dem Scan";
+"autoSearchAfterScanDescription" = "Wenn aktiviert, sucht die App nach dem Scannen eines Barcodes automatisch nach dem Herkunftsland."; 

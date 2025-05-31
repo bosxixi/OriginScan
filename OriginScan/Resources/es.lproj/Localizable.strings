@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "Ingrese el código de barras manualmente";
 "scan" = "Escanear";
 "search" = "Buscar";
-"positionBarcodeWithinFrame" = "Posicione el código de barras dentro del marco"; 
+"positionBarcodeWithinFrame" = "Posicione el código de barras dentro del marco";
+"history" = "Historial";
+"settings" = "Ajustes";
+"close" = "Cerrar";
+"scansRemaining" = "Escaneos Restantes";
+"autoSearchAfterScan" = "Búsqueda Automática Después de Escanear";
+"autoSearchAfterScanDescription" = "Cuando está habilitado, la aplicación buscará automáticamente el país de origen después de escanear un código de barras."; 

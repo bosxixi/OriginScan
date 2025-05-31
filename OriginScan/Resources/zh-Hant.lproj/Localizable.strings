@@ -2,4 +2,10 @@
 "enterBarcodeManually" = "手動輸入條形碼";
 "scan" = "掃描";
 "search" = "搜索";
-"positionBarcodeWithinFrame" = "將條形碼對準框內"; 
+"positionBarcodeWithinFrame" = "將條形碼對準框內";
+"history" = "歷史";
+"settings" = "設置";
+"close" = "關閉";
+"scansRemaining" = "剩餘掃描次數";
+"autoSearchAfterScan" = "掃描後自動搜索";
+"autoSearchAfterScanDescription" = "啟用後，應用將在掃描條形碼後自動搜索原產國。"; 
