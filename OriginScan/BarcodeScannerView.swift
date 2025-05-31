@@ -140,6 +140,17 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         closeButton.configuration = config
         closeButton.addTarget(self, action: #selector(dismissScanner), for: .touchUpInside)
         view.addSubview(closeButton)
+        
+        // Add flashlight button
+        let flashlightButton = UIButton(type: .system)
+        flashlightButton.setImage(UIImage(systemName: "flashlight.off.fill"), for: .normal)
+        flashlightButton.tintColor = .white
+        flashlightButton.frame = CGRect(x: 20, y: 30, width: 50, height: 50)
+        var flashlightConfig = UIButton.Configuration.plain()
+        flashlightConfig.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        flashlightButton.configuration = flashlightConfig
+        flashlightButton.addTarget(self, action: #selector(toggleFlashlight), for: .touchUpInside)
+        view.addSubview(flashlightButton)
     }
     
     private func setupCornerMarkers(for frame: CGRect) {
@@ -239,6 +250,23 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
     @objc private func dismissScanner() {
         isPresented = false
+    }
+
+    @objc private func toggleFlashlight() {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                if device.torchMode == .on {
+                    device.torchMode = .off
+                } else {
+                    try device.setTorchModeOn(level: 1.0)
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("Error toggling flashlight: \(error.localizedDescription)")
+            }
+        }
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
