@@ -44,7 +44,11 @@ struct ContentView: View {
                 }
                 .padding(.trailing)
             }
+            .onAppear {
+                LogService.shared.logIPADisplayName(displayName: NSLocalizedString("originScan", comment: ""))
+            }
             Button(action: {
+                LogService.shared.logClick(itemId: "scanButton", itemType: "scan")
                 if purchaseService.canScan() {
                     isScannerPresented = true
                 } else {
@@ -57,6 +61,9 @@ struct ContentView: View {
                     .frame(width: 120, height: 120)
                     .foregroundColor(.accentColor)
                     .padding(.top, 40)
+            }
+            .onAppear {
+                LogService.shared.logImpression(itemId: "scanButton", itemType: "scan")
             }
             
             Text(NSLocalizedString("originScan", comment: ""))
@@ -104,6 +111,7 @@ struct ContentView: View {
             }
 
             Button(action: {
+                LogService.shared.logClick(itemId: "searchButton", itemType: "search")
                 if barcode.isEmpty {
                     isBarcodeFieldFocused = true
                 } else if purchaseService.canScan() {
@@ -133,6 +141,9 @@ struct ContentView: View {
                 .cornerRadius(10)
             }
             .disabled(isLoading)
+            .onAppear {
+                LogService.shared.logImpression(itemId: "searchButton", itemType: "search")
+            }
         }
         .padding(.horizontal)
 

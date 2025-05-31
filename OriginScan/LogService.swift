@@ -42,12 +42,12 @@ class LogService {
     
     // User language
     private var userLanguage: String {
-        return Locale.current.languageCode ?? "unknown"
+        return getLanguageCode()
     }
     
     // User country location
     private var userCountry: String {
-        return Locale.current.regionCode ?? "unknown"
+        return getRegionCode()
     }
     
     private init() {}
@@ -59,11 +59,15 @@ class LogService {
         return "\(version) (\(build))"
     }
     
-    /// Logs an event with properties to the backend API
-    /// - Parameters:
-    ///   - method: The method/event name
-    ///   - properties: Properties as key-value pairs
-    ///   - source: The source of the log (defaults to "originscan")
+    private func getLanguageCode() -> String {
+        return Locale.current.language.languageCode?.identifier ?? "unknown"
+    }
+    
+    private func getRegionCode() -> String {
+        return Locale.current.region?.identifier ?? "unknown"
+    }
+    
+    @MainActor
     func logEvent(method: String, properties: [String: String], source: String = "originscan") {
         guard let url = URL(string: "\(baseURL)/api/log/event?method=\(method)&source=\(source)") else {
             print("Invalid URL for logging event")
@@ -83,6 +87,7 @@ class LogService {
         mergedProperties["deviceType"] = deviceType
         mergedProperties["language"] = userLanguage
         mergedProperties["country"] = userCountry
+        mergedProperties["remainingScans"] = String(PurchaseService.shared.remainingScans)
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: mergedProperties)
@@ -109,6 +114,7 @@ class LogService {
     
     /// Logs a barcode scan event
     /// - Parameter barcode: The scanned barcode
+    @MainActor
     func logBarcodeScan(barcode: String) {
         let properties: [String: String] = [
             "barcode": barcode,
@@ -121,6 +127,7 @@ class LogService {
     /// - Parameters:
     ///   - barcode: The barcode that was searched
     ///   - country: The country that was found
+    @MainActor
     func logCountrySearch(barcode: String, country: String) {
         let properties: [String: String] = [
             "barcode": barcode,
@@ -134,6 +141,7 @@ class LogService {
     /// - Parameters:
     ///   - error: The error that occurred
     ///   - context: Additional context about where the error occurred
+    @MainActor
     func logError(error: Error, context: String) {
         let properties: [String: String] = [
             "error": error.localizedDescription,
@@ -141,5 +149,62 @@ class LogService {
             "timestamp": ISO8601DateFormatter().string(from: Date())
         ]
         logEvent(method: "Error", properties: properties)
+    }
+    
+    /// Logs an IPA display name event
+    /// - Parameter displayName: The display name of the IPA
+    @MainActor
+    func logIPADisplayName(displayName: String) {
+        let properties: [String: String] = [
+            "displayName": displayName,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ]
+        logEvent(method: "IPADisplayName", properties: properties)
+    }
+    
+    /// Logs an impression event
+    /// - Parameters:
+    ///   - itemId: The ID of the item that was shown
+    ///   - itemType: The type of the item (e.g., "purchase", "feature")
+    @MainActor
+    func logImpression(itemId: String, itemType: String) {
+        let properties: [String: String] = [
+            "itemId": itemId,
+            "itemType": itemType,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ]
+        logEvent(method: "Impression", properties: properties)
+    }
+    
+    /// Logs a click event
+    /// - Parameters:
+    ///   - itemId: The ID of the item that was clicked
+    ///   - itemType: The type of the item (e.g., "purchase", "feature")
+    @MainActor
+    func logClick(itemId: String, itemType: String) {
+        let properties: [String: String] = [
+            "itemId": itemId,
+            "itemType": itemType,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ]
+        logEvent(method: "Click", properties: properties)
+    }
+    
+    /// Logs a conversion event
+    /// - Parameters:
+    ///   - itemId: The ID of the item that was converted
+    ///   - itemType: The type of the item (e.g., "purchase", "feature")
+    ///   - value: Optional value associated with the conversion (e.g., purchase amount)
+    @MainActor
+    func logConversion(itemId: String, itemType: String, value: String? = nil) {
+        var properties: [String: String] = [
+            "itemId": itemId,
+            "itemType": itemType,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ]
+        if let value = value {
+            properties["value"] = value
+        }
+        logEvent(method: "Conversion", properties: properties)
     }
 } 

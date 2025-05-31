@@ -30,8 +30,12 @@ struct PurchaseView: View {
                 }
                 
                 Button(action: {
+                    LogService.shared.logClick(itemId: "purchaseButton", itemType: "purchase")
                     Task {
                         await purchaseService.purchaseScans()
+                        if purchaseService.purchaseError == nil {
+                            LogService.shared.logConversion(itemId: "purchaseButton", itemType: "purchase", value: "100")
+                        }
                     }
                 }) {
                     HStack {
@@ -49,13 +53,20 @@ struct PurchaseView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }
+                .onAppear {
+                    LogService.shared.logImpression(itemId: "purchaseButton", itemType: "purchase")
+                }
                 .disabled(purchaseService.isPurchasing)
                 .padding(.horizontal)
                 
                 Button("Maybe Later") {
+                    LogService.shared.logClick(itemId: "maybeLaterButton", itemType: "purchase")
                     dismiss()
                 }
                 .foregroundColor(.secondary)
+                .onAppear {
+                    LogService.shared.logImpression(itemId: "maybeLaterButton", itemType: "purchase")
+                }
             }
             .padding()
             .navigationBarItems(trailing: Button("Close") {
