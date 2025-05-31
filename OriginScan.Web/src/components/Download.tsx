@@ -8,7 +8,7 @@ const Download: React.FC = () => {
         <h2 className="download-title">Download OriginScan</h2>
         <p className="download-description">Available now on the App Store</p>
         <a 
-          href="https://apps.apple.com/us/app/scorpio-player-2025/id1617922279?platform=iphone" 
+          href="https://apps.apple.com/us/app/is-product-of-usa/id6746661830" 
           target="_blank" 
           rel="noopener noreferrer" 
           className="app-store-button"
