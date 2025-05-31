@@ -5,7 +5,9 @@ struct AboutView: View {
     @State private var isMailComposerPresented = false
     let publisher = "ScorpioPlayer"
     let appName = "OriginScan"
-    let appVersion = "1.0"
+    var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    }
 
     var body: some View {
         VStack(spacing: 20) {
