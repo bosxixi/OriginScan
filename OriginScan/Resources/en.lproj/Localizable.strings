@@ -17,4 +17,8 @@
 "upgradeToPremium" = "Upgrade to Premium";
 "getAdditionalScans" = "Get 100 additional scans for just $2.99";
 "purchaseScans" = "Purchase 100 Scans";
-"maybeLater" = "Maybe Later"; 
+"maybeLater" = "Maybe Later";
+"clear" = "Clear";
+"clearHistory" = "Clear History";
+"clearHistoryConfirmation" = "Are you sure you want to clear all scan history? This action cannot be undone.";
+"cancel" = "Cancel"; 

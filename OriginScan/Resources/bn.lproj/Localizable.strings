@@ -11,4 +11,8 @@
 "upgradeToPremium" = "প্রিমিয়ামে আপগ্রেড করুন";
 "getAdditionalScans" = "₹249-এ 100টি অতিরিক্ত স্ক্যান পান";
 "purchaseScans" = "100টি স্ক্যান কিনুন";
-"maybeLater" = "পরে"; 
+"maybeLater" = "পরে";
+"clear" = "মুছুন";
+"clearHistory" = "ইতিহাস মুছুন";
+"clearHistoryConfirmation" = "আপনি কি নিশ্চিত যে আপনি সমস্ত স্ক্যান ইতিহাস মুছে ফেলতে চান? এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না।";
+"cancel" = "বাতিল করুন"; 

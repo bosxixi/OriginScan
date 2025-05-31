@@ -18,4 +18,8 @@
 "upgradeToPremium" = "Passa a Premium";
 "getAdditionalScans" = "Ottieni 100 scansioni aggiuntive per soli 2,99 €";
 "purchaseScans" = "Acquista 100 Scansioni";
-"maybeLater" = "Forse Più Tardi"; 
+"maybeLater" = "Forse Più Tardi";
+"clear" = "Cancella";
+"clearHistory" = "Cancella cronologia";
+"clearHistoryConfirmation" = "Sei sicuro di voler cancellare tutta la cronologia delle scansioni? Questa azione non può essere annullata.";
+"cancel" = "Annulla"; 

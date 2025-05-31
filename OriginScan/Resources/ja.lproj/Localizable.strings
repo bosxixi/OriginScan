@@ -18,4 +18,8 @@
 "upgradeToPremium" = "プレミアムにアップグレード";
 "getAdditionalScans" = "100回の追加スキャンを¥299で";
 "purchaseScans" = "100回のスキャンを購入";
-"maybeLater" = "後で"; 
+"maybeLater" = "後で";
+"clear" = "クリア";
+"clearHistory" = "履歴をクリア";
+"clearHistoryConfirmation" = "すべてのスキャン履歴をクリアしてもよろしいですか？この操作は元に戻せません。";
+"cancel" = "キャンセル"; 

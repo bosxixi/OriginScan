@@ -18,4 +18,8 @@
 "upgradeToPremium" = "升级至高级版";
 "getAdditionalScans" = "仅需¥19.99即可获得100次额外扫描";
 "purchaseScans" = "购买100次扫描";
-"maybeLater" = "稍后再说"; 
+"maybeLater" = "稍后再说";
+"clear" = "清除";
+"clearHistory" = "清除历史记录";
+"clearHistoryConfirmation" = "确定要清除所有扫描历史记录吗？此操作无法撤销。";
+"cancel" = "取消"; 

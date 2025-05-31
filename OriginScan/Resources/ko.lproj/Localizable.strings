@@ -18,4 +18,8 @@
 "upgradeToPremium" = "프리미엄으로 업그레이드";
 "getAdditionalScans" = "₩3,900에 100회 추가 스캔 획득";
 "purchaseScans" = "100회 스캔 구매";
-"maybeLater" = "나중에"; 
+"maybeLater" = "나중에";
+"clear" = "지우기";
+"clearHistory" = "스캔 기록 지우기";
+"clearHistoryConfirmation" = "모든 스캔 기록을 지우시겠습니까? 이 작업은 취소할 수 없습니다.";
+"cancel" = "취소"; 

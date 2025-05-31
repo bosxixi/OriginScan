@@ -57,18 +57,18 @@ struct HistoryView: View {
                         Button(role: .destructive) {
                             showClearConfirmation = true
                         } label: {
-                            Label("Clear", systemImage: "trash")
+                            Label(NSLocalizedString("clear", comment: ""), systemImage: "trash")
                         }
                     }
                 }
             }
-            .alert("Clear History", isPresented: $showClearConfirmation) {
-                Button("Cancel", role: .cancel) { }
-                Button("Clear", role: .destructive) {
+            .alert(NSLocalizedString("clearHistory", comment: ""), isPresented: $showClearConfirmation) {
+                Button(NSLocalizedString("cancel", comment: ""), role: .cancel) { }
+                Button(NSLocalizedString("clear", comment: ""), role: .destructive) {
                     historyService.clear()
                 }
             } message: {
-                Text("Are you sure you want to clear all history?")
+                Text(NSLocalizedString("clearHistoryConfirmation", comment: ""))
             }
         }
     }

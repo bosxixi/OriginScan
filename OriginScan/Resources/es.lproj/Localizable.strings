@@ -18,4 +18,8 @@
 "upgradeToPremium" = "Actualizar a Premium";
 "getAdditionalScans" = "Obtén 100 escaneos adicionales por solo $2.99";
 "purchaseScans" = "Comprar 100 Escaneos";
-"maybeLater" = "Quizás Más Tarde"; 
+"maybeLater" = "Quizás Más Tarde";
+"clear" = "Borrar";
+"clearHistory" = "Borrar historial";
+"clearHistoryConfirmation" = "¿Está seguro de que desea borrar todo el historial de escaneos? Esta acción no se puede deshacer.";
+"cancel" = "Cancelar"; 
