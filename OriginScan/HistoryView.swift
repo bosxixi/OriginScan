@@ -52,9 +52,6 @@ struct HistoryView: View {
             }
             .navigationTitle("Scan History")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Close") { dismiss() }
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !historyService.items.isEmpty {
                         Button(role: .destructive) {
