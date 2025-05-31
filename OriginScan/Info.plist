@@ -4,6 +4,8 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>OriginScan needs camera access to scan barcodes and identify product origins.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
