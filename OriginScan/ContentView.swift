@@ -199,8 +199,7 @@ struct MenuView: View {
                     .padding()
             }
             .sheet(isPresented: $showAbout) {
-                Text("About Page")
-                    .padding()
+                AboutView()
             }
             .sheet(isPresented: $showHistory) {
                 Text("History Page")
