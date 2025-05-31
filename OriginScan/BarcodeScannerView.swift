@@ -27,6 +27,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var onScanComplete: (String) -> Void
     
     private var initialZoom: CGFloat = 1.0
+    private var currentCameraPosition: AVCaptureDevice.Position = .back
     
     // Constants for the scanning frame
     private let scanningFrameWidth: CGFloat = 300  // Width for 3:2 ratio
@@ -73,7 +74,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     private func setupCamera() {
         captureSession = AVCaptureSession()
 
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
+        guard let videoCaptureDevice = getCameraDevice() else {
             return
         }
 
@@ -115,6 +116,46 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGesture(_:)))
         view.addGestureRecognizer(pinchGesture)
 
+        captureSession.startRunning()
+    }
+    
+    private func getCameraDevice() -> AVCaptureDevice? {
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera]
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: deviceTypes,
+            mediaType: .video,
+            position: currentCameraPosition
+        )
+        return discoverySession.devices.first
+    }
+    
+    private func switchCamera() {
+        guard let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput else { return }
+        
+        // Stop the session
+        captureSession.stopRunning()
+        
+        // Remove current input
+        captureSession.removeInput(currentInput)
+        
+        // Switch camera position
+        currentCameraPosition = currentCameraPosition == .back ? .front : .back
+        
+        // Get new camera device
+        guard let newCamera = getCameraDevice() else { return }
+        
+        // Create new input
+        do {
+            let newInput = try AVCaptureDeviceInput(device: newCamera)
+            if captureSession.canAddInput(newInput) {
+                captureSession.addInput(newInput)
+            }
+        } catch {
+            print("Error switching camera: \(error.localizedDescription)")
+            return
+        }
+        
+        // Start the session again
         captureSession.startRunning()
     }
     
@@ -172,6 +213,17 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         flashlightButton.configuration = flashlightConfig
         flashlightButton.addTarget(self, action: #selector(toggleFlashlight), for: .touchUpInside)
         view.addSubview(flashlightButton)
+        
+        // Add camera toggle button
+        let cameraToggleButton = UIButton(type: .system)
+        cameraToggleButton.setImage(UIImage(systemName: "camera.rotate.fill"), for: .normal)
+        cameraToggleButton.tintColor = .white
+        cameraToggleButton.frame = CGRect(x: view.bounds.width - 70, y: 90, width: 50, height: 50)
+        var cameraToggleConfig = UIButton.Configuration.plain()
+        cameraToggleConfig.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        cameraToggleButton.configuration = cameraToggleConfig
+        cameraToggleButton.addTarget(self, action: #selector(toggleCamera), for: .touchUpInside)
+        view.addSubview(cameraToggleButton)
     }
     
     private func setupCornerMarkers(for frame: CGRect) {
@@ -288,6 +340,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 print("Error toggling flashlight: \(error.localizedDescription)")
             }
         }
+    }
+
+    @objc private func toggleCamera() {
+        switchCamera()
     }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
