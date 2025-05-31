@@ -2,4 +2,9 @@
 "enterBarcodeManually" = "手动输入条形码";
 "scan" = "扫描";
 "search" = "搜索";
-"positionBarcodeWithinFrame" = "将条形码对准框内"; 
+"positionBarcodeWithinFrame" = "将条形码对准框内";
+"about" = "关于";
+"publisher" = "发布者: ScorpioPlayer";
+"supportEmail" = "支持邮箱: support@scorpioplayer.com";
+"appName" = "应用名称: OriginScan";
+"appVersion" = "应用版本: 1.0"; 

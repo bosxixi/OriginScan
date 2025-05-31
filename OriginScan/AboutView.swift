@@ -3,16 +3,16 @@ import SwiftUI
 struct AboutView: View {
     var body: some View {
         VStack(spacing: 20) {
-            Text("About")
+            Text(NSLocalizedString("about", comment: ""))
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            Text("Publisher: ScorpioPlayer")
+            Text(NSLocalizedString("publisher", comment: ""))
                 .font(.title2)
-            Text("Support Email: support@scorpioplayer.com")
+            Text(NSLocalizedString("supportEmail", comment: ""))
                 .font(.title2)
-            Text("App Name: OriginScan")
+            Text(NSLocalizedString("appName", comment: ""))
                 .font(.title2)
-            Text("App Version: 1.0")
+            Text(NSLocalizedString("appVersion", comment: ""))
                 .font(.title2)
         }
         .padding()
