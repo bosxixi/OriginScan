@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class LogService {
     static let shared = LogService()
@@ -29,6 +30,26 @@ class LogService {
         return hashString
     }
     
+    // User device name
+    private var deviceName: String {
+        return UIDevice.current.name
+    }
+    
+    // Device type
+    private var deviceType: String {
+        return UIDevice.current.model
+    }
+    
+    // User language
+    private var userLanguage: String {
+        return Locale.current.languageCode ?? "unknown"
+    }
+    
+    // User country location
+    private var userCountry: String {
+        return Locale.current.regionCode ?? "unknown"
+    }
+    
     private init() {}
     
     /// Helper to get the current app version from the bundle
@@ -53,11 +74,15 @@ class LogService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        // Merge app version, persistent user ID, and hashed user ID into properties
+        // Merge app version, persistent user ID, hashed user ID, device name, device type, language, and country into properties
         var mergedProperties = properties
         mergedProperties["appVersion"] = appVersion
         mergedProperties["userId"] = persistentUserId
         mergedProperties["hashedUserId"] = hashedUserId
+        mergedProperties["deviceName"] = deviceName
+        mergedProperties["deviceType"] = deviceType
+        mergedProperties["language"] = userLanguage
+        mergedProperties["country"] = userCountry
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: mergedProperties)
