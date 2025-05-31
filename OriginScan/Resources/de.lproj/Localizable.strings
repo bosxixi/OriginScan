@@ -7,5 +7,6 @@
 "settings" = "Einstellungen";
 "close" = "Schließen";
 "scansRemaining" = "Verbleibende Scans";
+"scanHistory" = "Scan-Verlauf";
 "autoSearchAfterScan" = "Automatische Suche nach dem Scan";
 "autoSearchAfterScanDescription" = "Wenn aktiviert, sucht die App nach dem Scannen eines Barcodes automatisch nach dem Herkunftsland."; 

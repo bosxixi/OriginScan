@@ -7,5 +7,6 @@
 "settings" = "설정";
 "close" = "닫기";
 "scansRemaining" = "남은 스캔 횟수";
+"scanHistory" = "스캔 기록";
 "autoSearchAfterScan" = "스캔 후 자동 검색";
 "autoSearchAfterScanDescription" = "활성화하면 바코드를 스캔한 후 원산지를 자동으로 검색합니다."; 

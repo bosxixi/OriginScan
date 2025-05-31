@@ -6,4 +6,5 @@
 "history" = "التاريخ";
 "settings" = "الإعدادات";
 "close" = "إغلاق";
-"scansRemaining" = "الفحوصات المتبقية"; 
+"scansRemaining" = "الفحوصات المتبقية";
+"scanHistory" = "سجل المسح"; 

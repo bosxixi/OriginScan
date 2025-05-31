@@ -8,4 +8,5 @@
 "close" = "Close";
 "scansRemaining" = "Scans Remaining";
 "autoSearchAfterScan" = "Auto Search After Scan";
-"autoSearchAfterScanDescription" = "When enabled, the app will automatically search for the country of origin after scanning a barcode."; 
+"autoSearchAfterScanDescription" = "When enabled, the app will automatically search for the country of origin after scanning a barcode.";
+"scanHistory" = "Scan History"; 

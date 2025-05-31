@@ -7,5 +7,6 @@
 "settings" = "Ayarlar";
 "close" = "Kapat";
 "scansRemaining" = "Kalan Tarama";
+"scanHistory" = "Tarama Geçmişi";
 "autoSearchAfterScan" = "Taramadan Sonra Otomatik Ara";
 "autoSearchAfterScanDescription" = "Etkinleştirildiğinde, uygulama bir barkodu taradıktan sonra menşe ülkeyi otomatik olarak arayacaktır."; 

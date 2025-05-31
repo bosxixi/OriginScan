@@ -7,5 +7,6 @@
 "settings" = "Paramètres";
 "close" = "Fermer";
 "scansRemaining" = "Scans Restants";
+"scanHistory" = "Historique des Scans";
 "autoSearchAfterScan" = "Recherche Automatique Après Scan";
 "autoSearchAfterScanDescription" = "Lorsqu'il est activé, l'application recherchera automatiquement le pays d'origine après avoir scanné un code-barres."; 

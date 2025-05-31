@@ -1,4 +1,5 @@
 "history" = "ইতিহাস";
 "settings" = "সেটিংস";
 "close" = "বন্ধ করুন";
-"scansRemaining" = "অবশিষ্ট স্ক্যান"; 
+"scansRemaining" = "অবশিষ্ট স্ক্যান";
+"scanHistory" = "স্ক্যান ইতিহাস"; 

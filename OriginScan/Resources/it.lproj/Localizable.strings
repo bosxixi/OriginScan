@@ -7,5 +7,6 @@
 "settings" = "Impostazioni";
 "close" = "Chiudi";
 "scansRemaining" = "Scansioni rimanenti";
+"scanHistory" = "Cronologia Scansioni";
 "autoSearchAfterScan" = "Ricerca Automatica Dopo la Scansione";
 "autoSearchAfterScanDescription" = "Quando attivato, l'app cercherà automaticamente il paese di origine dopo aver scansionato un codice a barre."; 

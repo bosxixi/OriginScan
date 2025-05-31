@@ -50,7 +50,7 @@ struct HistoryView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("Scan History")
+            .navigationTitle(NSLocalizedString("scanHistory", comment: ""))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !historyService.items.isEmpty {

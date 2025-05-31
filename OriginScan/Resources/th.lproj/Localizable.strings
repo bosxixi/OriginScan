@@ -8,4 +8,5 @@
 "close" = "ปิด";
 "scansRemaining" = "จำนวนการสแกนที่เหลือ";
 "autoSearchAfterScan" = "ค้นหาอัตโนมัติหลังการสแกน";
-"autoSearchAfterScanDescription" = "เมื่อเปิดใช้งาน แอปจะค้นหาประเทศต้นทางโดยอัตโนมัติหลังจากสแกนบาร์โค้ด"; 
+"autoSearchAfterScanDescription" = "เมื่อเปิดใช้งาน แอปจะค้นหาประเทศต้นทางโดยอัตโนมัติหลังจากสแกนบาร์โค้ด";
+"scanHistory" = "ประวัติการสแกน"; 

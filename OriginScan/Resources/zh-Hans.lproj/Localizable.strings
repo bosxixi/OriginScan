@@ -8,4 +8,5 @@
 "close" = "关闭";
 "scansRemaining" = "剩余扫描次数";
 "autoSearchAfterScan" = "扫描后自动搜索";
-"autoSearchAfterScanDescription" = "启用后，应用将在扫描条形码后自动搜索原产国。"; 
+"autoSearchAfterScanDescription" = "启用后，应用将在扫描条形码后自动搜索原产国。";
+"scanHistory" = "扫描历史"; 
