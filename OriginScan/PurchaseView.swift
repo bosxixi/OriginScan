@@ -35,6 +35,7 @@ struct PurchaseView: View {
                         await purchaseService.purchaseScans()
                         if purchaseService.purchaseError == nil {
                             LogService.shared.logConversion(itemId: "purchaseButton", itemType: "purchase", value: "100")
+                            dismiss()
                         }
                     }
                 }) {
