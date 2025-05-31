@@ -2,9 +2,4 @@
 "enterBarcodeManually" = "Enter barcode manually";
 "scan" = "Scan";
 "search" = "Search";
-"positionBarcodeWithinFrame" = "Position barcode within frame";
-"about" = "About";
-"publisher" = "Publisher: %@";
-"contactUs" = "Contact Us";
-"appName" = "App Name: %@";
-"appVersion" = "App Version: %@"; 
+"positionBarcodeWithinFrame" = "Position barcode within frame"; 
