@@ -4,7 +4,9 @@ import MessageUI
 struct AboutView: View {
     @State private var isMailComposerPresented = false
     let publisher = "ScorpioPlayer"
-    let appName = "OriginScan"
+    var appName: String {
+        Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "Unknown"
+    }
     var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     }
