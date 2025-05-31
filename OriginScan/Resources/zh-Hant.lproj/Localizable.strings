@@ -9,4 +9,8 @@
 "scansRemaining" = "剩餘掃描次數";
 "autoSearchAfterScan" = "掃描後自動搜索";
 "autoSearchAfterScanDescription" = "啟用後，應用將在掃描條形碼後自動搜索原產國。";
-"scanHistory" = "掃描歷史"; 
+"scanHistory" = "掃描歷史";
+"quickScan" = "快速掃描";
+"quickScanDescription" = "啟用後，應用將在啟動後自動打開掃描器。";
+"about" = "關於";
+"aboutText" = "OriginScan是一款可以掃描條形碼並發現產品原產地的應用程序。只需將相機對準條形碼或手動輸入，即可立即獲取有關產品原產地的信息。"; 

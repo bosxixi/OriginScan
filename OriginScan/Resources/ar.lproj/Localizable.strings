@@ -7,4 +7,7 @@
 "settings" = "الإعدادات";
 "close" = "إغلاق";
 "scansRemaining" = "الفحوصات المتبقية";
-"scanHistory" = "سجل المسح"; 
+"scanHistory" = "سجل المسح";
+"about" = "حول";
+"quickScan" = "مسح سريع";
+"quickScanDescription" = "عند التمكين، سيفتح التطبيق الماسح الضوئي تلقائيًا بعد التشغيل."; 

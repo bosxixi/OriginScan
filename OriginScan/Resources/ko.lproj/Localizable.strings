@@ -9,4 +9,8 @@
 "scansRemaining" = "남은 스캔 횟수";
 "scanHistory" = "스캔 기록";
 "autoSearchAfterScan" = "스캔 후 자동 검색";
-"autoSearchAfterScanDescription" = "활성화하면 바코드를 스캔한 후 원산지를 자동으로 검색합니다."; 
+"autoSearchAfterScanDescription" = "활성화하면 바코드를 스캔한 후 원산지를 자동으로 검색합니다.";
+"quickScan" = "빠른 스캔";
+"quickScanDescription" = "활성화하면 앱이 시작된 후 자동으로 스캐너가 열립니다.";
+"about" = "앱 정보";
+"aboutText" = "OriginScan은 바코드를 스캔하여 제품의 원산지를 확인할 수 있는 앱입니다. 카메라를 바코드에 대거나 수동으로 입력하기만 하면 제품의 원산지에 대한 즉각적인 정보를 얻을 수 있습니다."; 

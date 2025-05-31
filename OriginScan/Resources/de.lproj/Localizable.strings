@@ -9,4 +9,8 @@
 "scansRemaining" = "Verbleibende Scans";
 "scanHistory" = "Scan-Verlauf";
 "autoSearchAfterScan" = "Automatische Suche nach dem Scan";
-"autoSearchAfterScanDescription" = "Wenn aktiviert, sucht die App nach dem Scannen eines Barcodes automatisch nach dem Herkunftsland."; 
+"autoSearchAfterScanDescription" = "Wenn aktiviert, sucht die App nach dem Scannen eines Barcodes automatisch nach dem Herkunftsland.";
+"quickScan" = "Schnell-Scan";
+"quickScanDescription" = "Wenn aktiviert, öffnet die App den Scanner automatisch nach dem Start.";
+"about" = "Über";
+"aboutText" = "OriginScan ist eine App, mit der Sie Barcodes scannen und das Herkunftsland von Produkten entdecken können. Richten Sie einfach Ihre Kamera auf einen Barcode oder geben Sie ihn manuell ein, um sofortige Informationen über die Herkunft des Produkts zu erhalten."; 

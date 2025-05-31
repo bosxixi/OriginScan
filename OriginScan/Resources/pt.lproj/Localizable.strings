@@ -9,4 +9,8 @@
 "scansRemaining" = "Scans Restantes";
 "scanHistory" = "Histórico de Scans";
 "autoSearchAfterScan" = "Pesquisa Automática Após Escanear";
-"autoSearchAfterScanDescription" = "Quando ativado, o aplicativo pesquisará automaticamente o país de origem após escanear um código de barras."; 
+"autoSearchAfterScanDescription" = "Quando ativado, o aplicativo pesquisará automaticamente o país de origem após escanear um código de barras.";
+"quickScan" = "Digitalização Rápida";
+"quickScanDescription" = "Quando ativado, o aplicativo abrirá automaticamente o scanner após a inicialização.";
+"about" = "Sobre";
+"aboutText" = "OriginScan é um aplicativo que permite escanear códigos de barras e descobrir o país de origem dos produtos. Basta apontar sua câmera para um código de barras ou inseri-lo manualmente para obter informações instantâneas sobre a origem do produto."; 

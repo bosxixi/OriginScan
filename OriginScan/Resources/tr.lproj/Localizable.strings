@@ -9,4 +9,7 @@
 "scansRemaining" = "Kalan Tarama";
 "scanHistory" = "Tarama Geçmişi";
 "autoSearchAfterScan" = "Taramadan Sonra Otomatik Ara";
-"autoSearchAfterScanDescription" = "Etkinleştirildiğinde, uygulama bir barkodu taradıktan sonra menşe ülkeyi otomatik olarak arayacaktır."; 
+"autoSearchAfterScanDescription" = "Etkinleştirildiğinde, uygulama bir barkodu taradıktan sonra menşe ülkeyi otomatik olarak arayacaktır.";
+"about" = "Hakkında";
+"quickScan" = "Hızlı Tarama";
+"quickScanDescription" = "Etkinleştirildiğinde, uygulama başlatıldıktan sonra otomatik olarak tarayıcıyı açacaktır."; 
