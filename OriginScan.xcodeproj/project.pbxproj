@@ -285,6 +285,7 @@
 				DEVELOPMENT_TEAM = YR744JCYQP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OriginScan/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "OriginScan requires camera access to scan product barcodes and determine their country of origin. This feature is essential for the app's core functionality.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -316,6 +317,7 @@
 				DEVELOPMENT_TEAM = YR744JCYQP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OriginScan/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "OriginScan requires camera access to scan product barcodes and determine their country of origin. This feature is essential for the app's core functionality.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

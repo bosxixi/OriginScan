@@ -1,0 +1,73 @@
+.download-section {
+    padding: 6rem 2rem;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+.download-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.download-title {
+    font-size: 3rem;
+    color: #333;
+    margin: 0;
+}
+
+.download-description {
+    font-size: 1.5rem;
+    color: #666;
+    margin: 0;
+}
+
+.download-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+
+.app-store-button {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.app-store-button:hover {
+    transform: scale(1.05);
+}
+
+.app-store-badge {
+    height: 60px;
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    .download-section {
+        padding: 4rem 1rem;
+    }
+
+    .download-title {
+        font-size: 2.5rem;
+    }
+
+    .download-description {
+        font-size: 1.2rem;
+    }
+
+    .app-store-badge {
+        height: 50px;
+    }
+} 

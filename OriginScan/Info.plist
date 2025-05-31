@@ -4,14 +4,5 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>OriginScan requires camera access to scan product barcodes and determine their country of origin. This feature is essential for the app's core functionality.</string>
-	<key>SKAdNetworkItems</key>
-	<array>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>com.apple.skadnetwork</string>
-		</dict>
-	</array>
 </dict>
 </plist>
