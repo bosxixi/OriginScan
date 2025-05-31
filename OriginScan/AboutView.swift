@@ -23,6 +23,10 @@ struct AboutView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
+            Text("\(NSLocalizedString("deviceCode", comment: "")): \(LogService.shared.hashedUserId)")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
             Text(NSLocalizedString("aboutText", comment: ""))
                 .font(.body)
                 .multilineTextAlignment(.center)

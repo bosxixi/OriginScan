@@ -12,4 +12,5 @@
 "scanHistory" = "Scan History";
 "about" = "About";
 "quickScan" = "Quick Scan";
-"quickScanDescription" = "When enabled, the app will automatically open the scanner after launching."; 
+"quickScanDescription" = "When enabled, the app will automatically open the scanner after launching.";
+"deviceCode" = "Device Code"; 

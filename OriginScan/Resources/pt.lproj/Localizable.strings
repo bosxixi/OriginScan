@@ -13,4 +13,5 @@
 "quickScan" = "Digitalização Rápida";
 "quickScanDescription" = "Quando ativado, o aplicativo abrirá automaticamente o scanner após a inicialização.";
 "about" = "Sobre";
-"aboutText" = "OriginScan é um aplicativo que permite escanear códigos de barras e descobrir o país de origem dos produtos. Basta apontar sua câmera para um código de barras ou inseri-lo manualmente para obter informações instantâneas sobre a origem do produto."; 
+"aboutText" = "OriginScan é um aplicativo que permite escanear códigos de barras e descobrir o país de origem dos produtos. Basta apontar sua câmera para um código de barras ou inseri-lo manualmente para obter informações instantâneas sobre a origem do produto.";
+"deviceCode" = "Código do Dispositivo"; 
