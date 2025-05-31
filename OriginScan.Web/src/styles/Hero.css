@@ -140,6 +140,14 @@
     .hero-image {
         width: 300px;
         height: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .hero-image img {
+        position: static;
+        display: block;
+        margin: 0 auto;
     }
 }
 
@@ -171,6 +179,14 @@
     .hero-image {
         width: 250px;
         height: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .hero-image img {
+        position: static;
+        display: block;
+        margin: 0 auto;
     }
 }
 
@@ -190,5 +206,13 @@
     .hero-image {
         width: 200px;
         height: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .hero-image img {
+        position: static;
+        display: block;
+        margin: 0 auto;
     }
 } 
