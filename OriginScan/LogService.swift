@@ -17,7 +17,7 @@ class LogService {
     }
     
     // Hashed version of the user ID (6 alphanumeric uppercase)
-    private var hashedUserId: String {
+    var hashedUserId: String {
         let data = persistentUserId.data(using: .utf8)!
         let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> UInt32 in
             var hash: UInt32 = 5381

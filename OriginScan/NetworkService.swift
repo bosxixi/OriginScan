@@ -6,7 +6,8 @@ class NetworkService {
     private init() {}
     
     func fetchIssuingCountry(for barcode: String, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)") else {
+        let hashedUserId = LogService.shared.hashedUserId
+        guard let url = URL(string: "https://scorpioplayer.com/api/ean/issuing-country?ean=\(barcode)&id=\(hashedUserId)") else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
         }
