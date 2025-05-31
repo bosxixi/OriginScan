@@ -10,7 +10,8 @@ import AVFoundation
 
 struct CountryInfo: Identifiable {
     let id = UUID()
-    let name: String
+    let englishName: String
+    let localizedName: String
     let flag: String
 }
 
@@ -101,10 +102,14 @@ struct ContentView: View {
                 VStack(spacing: 15) {
                     Text(country.flag)
                         .font(.system(size: 100))
-                    
-                    Text(country.name)
+                    Text(country.englishName)
                         .font(.title2)
                         .fontWeight(.semibold)
+                    if country.localizedName != country.englishName {
+                        Text(country.localizedName)
+                            .font(.title3)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 .padding()
                 .background(Color(.systemBackground))
@@ -124,7 +129,9 @@ struct ContentView: View {
                 isLoading = false
                 switch result {
                 case .success(let issuingCountry):
-                    countryInfo = CountryInfo(name: issuingCountry, flag: flagEmoji(for: issuingCountry))
+                    let code = String(issuingCountry.prefix(2)).uppercased()
+                    let displayNames = CountryUtils.displayNames(for: code)
+                    countryInfo = CountryInfo(englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
                 case .failure:
                     countryInfo = nil
                 }
