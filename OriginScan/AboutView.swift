@@ -3,25 +3,28 @@ import MessageUI
 
 struct AboutView: View {
     @State private var isMailComposerPresented = false
+    let publisher = "ScorpioPlayer"
+    let appName = "OriginScan"
+    let appVersion = "1.0"
 
     var body: some View {
         VStack(spacing: 20) {
             Text(NSLocalizedString("about", comment: ""))
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            Text(NSLocalizedString("publisher", comment: ""))
+            Text(String(format: NSLocalizedString("publisher", comment: ""), publisher))
                 .font(.title2)
             Button(action: {
                 isMailComposerPresented = true
             }) {
-                Text(NSLocalizedString("supportEmail", comment: ""))
+                Text(NSLocalizedString("contactUs", comment: ""))
                     .font(.title2)
                     .foregroundColor(.blue)
                     .underline()
             }
-            Text(NSLocalizedString("appName", comment: ""))
+            Text(String(format: NSLocalizedString("appName", comment: ""), appName))
                 .font(.title2)
-            Text(NSLocalizedString("appVersion", comment: ""))
+            Text(String(format: NSLocalizedString("appVersion", comment: ""), appVersion))
                 .font(.title2)
         }
         .padding()

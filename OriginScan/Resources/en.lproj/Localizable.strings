@@ -4,7 +4,7 @@
 "search" = "Search";
 "positionBarcodeWithinFrame" = "Position barcode within frame";
 "about" = "About";
-"publisher" = "Publisher: ScorpioPlayer";
-"supportEmail" = "Support Email: support@scorpioplayer.com";
-"appName" = "App Name: OriginScan";
-"appVersion" = "App Version: 1.0"; 
+"publisher" = "Publisher: %@";
+"contactUs" = "Contact Us";
+"appName" = "App Name: %@";
+"appVersion" = "App Version: %@"; 

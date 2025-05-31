@@ -4,7 +4,7 @@
 "search" = "搜索";
 "positionBarcodeWithinFrame" = "将条形码对准框内";
 "about" = "关于";
-"publisher" = "发布者: ScorpioPlayer";
-"supportEmail" = "支持邮箱: support@scorpioplayer.com";
-"appName" = "应用名称: OriginScan";
-"appVersion" = "应用版本: 1.0"; 
+"publisher" = "发布者: %@";
+"contactUs" = "联系我们";
+"appName" = "应用名称: %@";
+"appVersion" = "应用版本: %@"; 
