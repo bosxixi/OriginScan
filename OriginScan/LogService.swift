@@ -6,11 +6,18 @@ class LogService {
     
     private init() {}
     
+    /// Helper to get the current app version from the bundle
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "unknown"
+        return "\(version) (\(build))"
+    }
+    
     /// Logs an event with properties to the backend API
     /// - Parameters:
     ///   - method: The method/event name
     ///   - properties: Properties as key-value pairs
-    ///   - source: The source of the log (defaults to "ios")
+    ///   - source: The source of the log (defaults to "originscan")
     func logEvent(method: String, properties: [String: String], source: String = "originscan") {
         guard let url = URL(string: "\(baseURL)/api/log/event?method=\(method)&source=\(source)") else {
             print("Invalid URL for logging event")
@@ -21,8 +28,12 @@ class LogService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        // Merge app version into properties
+        var mergedProperties = properties
+        mergedProperties["appVersion"] = appVersion
+        
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: properties)
+            let jsonData = try JSONSerialization.data(withJSONObject: mergedProperties)
             request.httpBody = jsonData
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
