@@ -14,4 +14,8 @@
 "quickScanDescription" = "Wenn aktiviert, öffnet die App den Scanner automatisch nach dem Start.";
 "about" = "Über";
 "aboutText" = "OriginScan ist eine App, mit der Sie Barcodes scannen und das Herkunftsland von Produkten entdecken können. Richten Sie einfach Ihre Kamera auf einen Barcode oder geben Sie ihn manuell ein, um sofortige Informationen über die Herkunft des Produkts zu erhalten.";
-"deviceCode" = "Geräte-Code"; 
+"deviceCode" = "Geräte-Code";
+"upgradeToPremium" = "Auf Premium upgraden";
+"getAdditionalScans" = "Erhalten Sie 100 zusätzliche Scans für nur 2,99 €";
+"purchaseScans" = "100 Scans kaufen";
+"maybeLater" = "Später"; 

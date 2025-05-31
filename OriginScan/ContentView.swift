@@ -117,7 +117,7 @@ struct ContentView: View {
                     if !scannedCode.isEmpty {
                         if autoSearchAfterScan {
                             isLoading = true
-                            purchaseService.useScan()
+                            purchaseService.useScan(barcode: scannedCode)
                             fetchIssuingCountry(for: scannedCode)
                         } else {
                             barcode = scannedCode
@@ -132,7 +132,7 @@ struct ContentView: View {
                     isBarcodeFieldFocused = true
                 } else if purchaseService.canScan() {
                     isLoading = true
-                    purchaseService.useScan()
+                    purchaseService.useScan(barcode: barcode)
                     fetchIssuingCountry(for: barcode)
                 } else {
                     showPurchaseView = true

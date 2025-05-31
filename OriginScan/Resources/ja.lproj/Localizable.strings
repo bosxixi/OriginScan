@@ -14,4 +14,8 @@
 "quickScanDescription" = "有効にすると、アプリ起動後に自動的にスキャナーが開きます。";
 "about" = "アプリについて";
 "aboutText" = "OriginScanは、バーコードをスキャンして製品の原産国を確認できるアプリです。カメラをバーコードに向けるか、手動で入力するだけで、製品の原産地に関する即時情報を取得できます。";
-"deviceCode" = "デバイスコード"; 
+"deviceCode" = "デバイスコード";
+"upgradeToPremium" = "プレミアムにアップグレード";
+"getAdditionalScans" = "100回の追加スキャンを¥299で";
+"purchaseScans" = "100回のスキャンを購入";
+"maybeLater" = "後で"; 

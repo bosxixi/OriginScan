@@ -14,4 +14,8 @@
 "quickScanDescription" = "Lorsqu'il est activé, l'application ouvrira automatiquement le scanner après le lancement.";
 "about" = "À propos";
 "aboutText" = "OriginScan est une application qui vous permet de scanner des codes-barres et de découvrir le pays d'origine des produits. Pointez simplement votre caméra vers un code-barres ou saisissez-le manuellement pour obtenir des informations instantanées sur l'origine du produit.";
-"deviceCode" = "Code Appareil"; 
+"deviceCode" = "Code Appareil";
+"upgradeToPremium" = "Passer à Premium";
+"getAdditionalScans" = "Obtenez 100 scans supplémentaires pour seulement 2,99 €";
+"purchaseScans" = "Acheter 100 Scans";
+"maybeLater" = "Plus Tard"; 

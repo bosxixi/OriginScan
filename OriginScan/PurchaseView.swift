@@ -13,11 +13,11 @@ struct PurchaseView: View {
                     .frame(width: 100, height: 100)
                     .foregroundColor(.accentColor)
                 
-                Text("Upgrade to Premium")
+                Text(NSLocalizedString("upgradeToPremium", comment: ""))
                     .font(.title)
                     .fontWeight(.bold)
                 
-                Text("Get 100 additional scans for just $2.99")
+                Text(NSLocalizedString("getAdditionalScans", comment: ""))
                     .font(.headline)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
@@ -43,7 +43,7 @@ struct PurchaseView: View {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         } else {
-                            Text("Purchase 100 Scans")
+                            Text(NSLocalizedString("purchaseScans", comment: ""))
                                 .fontWeight(.semibold)
                         }
                     }
@@ -59,7 +59,7 @@ struct PurchaseView: View {
                 .disabled(purchaseService.isPurchasing)
                 .padding(.horizontal)
                 
-                Button("Maybe Later") {
+                Button(NSLocalizedString("maybeLater", comment: "")) {
                     LogService.shared.logClick(itemId: "maybeLaterButton", itemType: "purchase")
                     dismiss()
                 }
@@ -69,7 +69,7 @@ struct PurchaseView: View {
                 }
             }
             .padding()
-            .navigationBarItems(trailing: Button("Close") {
+            .navigationBarItems(trailing: Button(NSLocalizedString("close", comment: "")) {
                 dismiss()
             })
         }

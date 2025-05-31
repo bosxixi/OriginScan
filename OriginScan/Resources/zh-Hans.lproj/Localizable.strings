@@ -14,4 +14,8 @@
 "quickScanDescription" = "启用后，应用将在启动后自动打开扫描器。";
 "about" = "关于";
 "aboutText" = "OriginScan是一款可以扫描条形码并发现产品原产地的应用程序。只需将相机对准条形码或手动输入，即可立即获取有关产品原产地的信息。";
-"deviceCode" = "设备代码"; 
+"deviceCode" = "设备代码";
+"upgradeToPremium" = "升级至高级版";
+"getAdditionalScans" = "仅需¥19.99即可获得100次额外扫描";
+"purchaseScans" = "购买100次扫描";
+"maybeLater" = "稍后再说"; 

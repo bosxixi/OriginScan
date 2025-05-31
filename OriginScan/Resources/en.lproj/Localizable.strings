@@ -13,4 +13,8 @@
 "about" = "About";
 "quickScan" = "Quick Scan";
 "quickScanDescription" = "When enabled, the app will automatically open the scanner after launching.";
-"deviceCode" = "Device Code"; 
+"deviceCode" = "Device Code";
+"upgradeToPremium" = "Upgrade to Premium";
+"getAdditionalScans" = "Get 100 additional scans for just $2.99";
+"purchaseScans" = "Purchase 100 Scans";
+"maybeLater" = "Maybe Later"; 
