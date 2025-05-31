@@ -9,7 +9,7 @@ struct AboutView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Image("AppIcon")
+            Image("AppLogo")
                 .resizable()
                 .frame(width: 100, height: 100)
                 .cornerRadius(20)
