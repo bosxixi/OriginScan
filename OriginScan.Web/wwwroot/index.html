@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>OriginScan - Scan Product Origins Instantly</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .hero-image img {
+            display: none;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        @media (prefers-color-scheme: light) {
+            .hero-image img[src*="light-portrait"] {
+                display: block;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            .hero-image img[src*="dark-portrait"] {
+                display: block;
+            }
+        }
+        @media (min-width: 768px) {
+            .hero-image {
+                max-width: 400px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -33,7 +64,8 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="images/app-preview.png" alt="OriginScan App Preview">
+                <img src="images/light-portrait.png" alt="OriginScan App Preview (Light Mode)">
+                <img src="images/dark-portrait.png" alt="OriginScan App Preview (Dark Mode)">
             </div>
         </section>
 

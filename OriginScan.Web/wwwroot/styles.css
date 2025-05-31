@@ -2,8 +2,30 @@
     --primary-color: #007AFF;
     --secondary-color: #5856D6;
     --text-color: #333333;
+    --text-color-light: #333333;
+    --text-color-dark: #FFFFFF;
     --light-gray: #F5F5F7;
     --white: #FFFFFF;
+    --background-light: #FFFFFF;
+    --background-dark: #1C1C1E;
+    --section-bg-light: #F5F5F7;
+    --section-bg-dark: #2C2C2E;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: var(--text-color-dark);
+        --background-light: var(--background-dark);
+        --section-bg-light: var(--section-bg-dark);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --text-color: var(--text-color-light);
+        --background-light: var(--white);
+        --section-bg-light: var(--light-gray);
+    }
 }
 
 * {
@@ -140,7 +162,7 @@ nav {
 /* Features Section */
 .features {
     padding: 6rem 2rem;
-    background-color: var(--light-gray);
+    background-color: var(--section-bg-light);
 }
 
 .features h2 {
@@ -186,12 +208,14 @@ nav {
     padding: 6rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: var(--white);
 }
 
 .how-it-works h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
+    color: var(--text-color);
 }
 
 .steps {
@@ -205,6 +229,16 @@ nav {
     text-align: center;
     flex: 1;
     min-width: 250px;
+}
+
+.step h3 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.step p {
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
 .step-number {
@@ -224,7 +258,7 @@ nav {
 /* Download Section */
 .download {
     padding: 6rem 2rem;
-    background-color: var(--light-gray);
+    background-color: var(--section-bg-light);
     text-align: center;
 }
 
