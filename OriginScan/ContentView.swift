@@ -22,10 +22,16 @@ struct ContentView: View {
     @State private var isScannerPresented: Bool = false
     @State private var isLoading: Bool = false
     @State private var isMenuPresented: Bool = false
+    @State private var showPurchaseView: Bool = false
+    @State private var showHistoryView: Bool = false
+    @StateObject private var purchaseService = PurchaseService.shared
 
     var body: some View {
         VStack(spacing: 20) {
             HStack {
+                Text("\(purchaseService.remainingScans) scans remaining")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
                 Spacer()
                 Button(action: {
                     isMenuPresented = true
@@ -37,7 +43,11 @@ struct ContentView: View {
                 .padding(.trailing)
             }
             Button(action: {
-                isScannerPresented = true
+                if purchaseService.canScan() {
+                    isScannerPresented = true
+                } else {
+                    showPurchaseView = true
+                }
             }) {
                 Image(systemName: "barcode.viewfinder")
                     .resizable()
@@ -57,7 +67,11 @@ struct ContentView: View {
 
             HStack(spacing: 20) {
                 Button(action: {
-                    isScannerPresented = true
+                    if purchaseService.canScan() {
+                        isScannerPresented = true
+                    } else {
+                        showPurchaseView = true
+                    }
                 }) {
                     HStack {
                         Image(systemName: "camera.fill")
@@ -65,75 +79,85 @@ struct ContentView: View {
                         Text(NSLocalizedString("scan", comment: ""))
                             .fontWeight(.semibold)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.accentColor)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
                 }
-                .sheet(isPresented: $isScannerPresented) {
-                    BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
-                        if !scannedCode.isEmpty {
-                            isLoading = true
-                            fetchIssuingCountry(for: scannedCode)
-                        }
-                    }
-                }
-
-                Button(action: {
-                    if barcode.isEmpty {
-                        countryInfo = nil
-                    } else {
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.accentColor)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .sheet(isPresented: $isScannerPresented) {
+                BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
+                    if !scannedCode.isEmpty {
                         isLoading = true
-                        fetchIssuingCountry(for: barcode)
+                        purchaseService.useScan()
+                        fetchIssuingCountry(for: scannedCode)
                     }
-                }) {
-                    HStack {
-                        if isLoading {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                .scaleEffect(0.8)
-                        } else {
-                            Image(systemName: "magnifyingglass")
-                                .font(.title2)
-                        }
-                        Text(NSLocalizedString("search", comment: ""))
-                            .fontWeight(.semibold)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(isLoading ? Color.secondary.opacity(0.7) : Color.secondary)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
                 }
-                .disabled(isLoading)
             }
-            .padding(.horizontal)
 
-            if let country = countryInfo {
-                VStack(spacing: 15) {
-                    Text(country.flag)
-                        .font(.system(size: 100))
-                    Text(country.englishName)
-                        .font(.title2)
+            Button(action: {
+                if barcode.isEmpty {
+                    countryInfo = nil
+                } else if purchaseService.canScan() {
+                    isLoading = true
+                    purchaseService.useScan()
+                    fetchIssuingCountry(for: barcode)
+                } else {
+                    showPurchaseView = true
+                }
+            }) {
+                HStack {
+                    if isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(0.8)
+                    } else {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title2)
+                    }
+                    Text(NSLocalizedString("search", comment: ""))
                         .fontWeight(.semibold)
-                    if country.localizedName != country.englishName {
-                        Text(country.localizedName)
-                            .font(.title3)
-                            .foregroundColor(.secondary)
-                    }
                 }
+                .frame(maxWidth: .infinity)
                 .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(15)
-                .shadow(radius: 5)
-                .padding()
+                .background(isLoading ? Color.secondary.opacity(0.7) : Color.secondary)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
-
-            Spacer()
+            .disabled(isLoading)
         }
+        .padding(.horizontal)
+
+        if let country = countryInfo {
+            VStack(spacing: 15) {
+                Text(country.flag)
+                    .font(.system(size: 100))
+                Text(country.englishName)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                if country.localizedName != country.englishName {
+                    Text(country.localizedName)
+                        .font(.title3)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(15)
+            .shadow(radius: 5)
+            .padding()
+        }
+
+        Spacer()
+        .navigationBarHidden(true)
         .sheet(isPresented: $isMenuPresented) {
-            MenuView(isPresented: $isMenuPresented)
+            NavigationView {
+                MenuView()
+            }
+        }
+        .sheet(isPresented: $showPurchaseView) {
+            PurchaseView()
         }
     }
 
@@ -149,6 +173,9 @@ struct ContentView: View {
                     countryInfo = CountryInfo(englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
                     // Log successful country search
                     LogService.shared.logCountrySearch(barcode: barcode, country: displayNames.english)
+                    // Save to history
+                    let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, flag: flagEmoji(for: code), barcode: barcode)
+                    ScanHistoryService.shared.add(item: historyItem)
                 case .failure(let error):
                     countryInfo = nil
                     // Log error
@@ -176,32 +203,25 @@ struct ContentView: View {
 }
 
 struct MenuView: View {
-    @Binding var isPresented: Bool
     @State private var showSettings: Bool = false
-    @State private var showHistory: Bool = false
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationView {
-            List {
-                Button("Settings") {
-                    showSettings = true
-                }
-                Button("History") {
-                    showHistory = true
-                }
+        List {
+            NavigationLink(destination: HistoryView()) {
+                Label("History", systemImage: "clock.arrow.circlepath")
             }
-            .navigationTitle("Menu")
-            .navigationBarItems(trailing: Button("Close") {
-                isPresented = false
-            })
-            .sheet(isPresented: $showSettings) {
-                Text("Settings Page")
-                    .padding()
+            Button("Settings") {
+                showSettings = true
             }
-            .sheet(isPresented: $showHistory) {
-                Text("History Page")
-                    .padding()
-            }
+        }
+        .navigationTitle("Menu")
+        .navigationBarItems(trailing: Button("Close") {
+            dismiss()
+        })
+        .sheet(isPresented: $showSettings) {
+            Text("Settings Page")
+                .padding()
         }
     }
 }
