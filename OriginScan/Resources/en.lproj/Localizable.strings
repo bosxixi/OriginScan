@@ -1,4 +1,4 @@
-"originScan" = "OriginScan";
+"originScan" = "Origin Scan";
 "enterBarcodeManually" = "Enter barcode manually";
 "scan" = "Scan";
 "search" = "Search";
@@ -11,8 +11,9 @@
 "autoSearchAfterScanDescription" = "When enabled, the app will automatically search for the country of origin after scanning a barcode.";
 "scanHistory" = "Scan History";
 "about" = "About";
+"aboutText" = "OriginScan is an app that allows you to scan barcodes and discover the country of origin of products. Simply point your camera at a barcode or enter it manually to get instant information about the product's origin.";
 "quickScan" = "Quick Scan";
-"quickScanDescription" = "When enabled, the app will automatically open the scanner after launching.";
+"quickScanDescription" = "When enabled, the app will automatically open the scanner after launch.";
 "deviceCode" = "Device Code";
 "upgradeToPremium" = "Upgrade to Premium";
 "getAdditionalScans" = "Get 100 additional scans for just $2.99";
@@ -27,7 +28,7 @@
 "countrySettings" = "Country Settings";
 "supportedCountries" = "Supported Countries";
 "boycottedCountries" = "Boycotted Countries";
-"searchCountries" = "Search countries";
+"searchCountries" = "Search Countries";
 
 // Errors
 "errorInvalidURL" = "Invalid URL";
@@ -36,4 +37,5 @@
 "errorCountryNotFound" = "Country not found";
 "errorCountryNotSupported" = "This country is not in your supported countries list";
 "errorCountryBoycotted" = "This country is in your boycotted countries list";
-"privacyPolicy" = "Privacy Policy"; 
+"privacyPolicy" = "Privacy Policy";
+"contactUs" = "Contact Us"; 
