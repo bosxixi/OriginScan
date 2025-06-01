@@ -24,4 +24,13 @@
 "clearHistoryConfirmation" = "Êtes-vous sûr de vouloir effacer tout l'historique des scans ? Cette action ne peut pas être annulée.";
 "cancel" = "Annuler";
 "countrySettings" = "Paramètres des Pays";
+"supportedCountries" = "Pays Supportés";
+"boycottedCountries" = "Pays Boycottés";
+"searchCountries" = "Rechercher des Pays";
+"errorInvalidURL" = "URL invalide";
+"errorInvalidResponse" = "Réponse invalide du serveur";
+"errorInvalidData" = "Données invalides reçues";
+"errorCountryNotFound" = "Pays non trouvé";
+"errorCountryNotSupported" = "Ce pays n'est pas dans votre liste de pays supportés";
+"errorCountryBoycotted" = "Ce pays est dans votre liste de pays boycottés";
 "privacyPolicy" = "Politique de Confidentialité"; 

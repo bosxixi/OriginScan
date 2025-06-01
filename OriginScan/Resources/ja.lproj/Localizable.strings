@@ -24,4 +24,13 @@
 "clearHistoryConfirmation" = "すべてのスキャン履歴をクリアしてもよろしいですか？この操作は元に戻せません。";
 "cancel" = "キャンセル";
 "countrySettings" = "国設定";
+"supportedCountries" = "対応国";
+"boycottedCountries" = "ボイコット国";
+"searchCountries" = "国を検索";
+"errorInvalidURL" = "無効なURL";
+"errorInvalidResponse" = "サーバーからの無効な応答";
+"errorInvalidData" = "無効なデータを受信";
+"errorCountryNotFound" = "国が見つかりません";
+"errorCountryNotSupported" = "この国は対応国リストにありません";
+"errorCountryBoycotted" = "この国はボイコット国リストにあります";
 "privacyPolicy" = "プライバシーポリシー"; 

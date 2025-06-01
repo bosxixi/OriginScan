@@ -24,4 +24,13 @@
 "clearHistoryConfirmation" = "Tem certeza que deseja limpar todo o histórico de digitalizações? Esta ação não pode ser desfeita.";
 "cancel" = "Cancelar";
 "countrySettings" = "Configurações de País";
+"supportedCountries" = "Países Suportados";
+"boycottedCountries" = "Países Boicotados";
+"searchCountries" = "Pesquisar Países";
+"errorInvalidURL" = "URL inválida";
+"errorInvalidResponse" = "Resposta inválida do servidor";
+"errorInvalidData" = "Dados inválidos recebidos";
+"errorCountryNotFound" = "País não encontrado";
+"errorCountryNotSupported" = "Este país não está na sua lista de países suportados";
+"errorCountryBoycotted" = "Este país está na sua lista de países boicotados";
 "privacyPolicy" = "Política de Privacidade"; 

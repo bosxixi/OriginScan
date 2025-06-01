@@ -24,4 +24,13 @@
 "clearHistoryConfirmation" = "모든 스캔 기록을 지우시겠습니까? 이 작업은 취소할 수 없습니다.";
 "cancel" = "취소";
 "countrySettings" = "국가 설정";
+"supportedCountries" = "지원 국가";
+"boycottedCountries" = "보이콧 국가";
+"searchCountries" = "국가 검색";
+"errorInvalidURL" = "잘못된 URL";
+"errorInvalidResponse" = "서버로부터 잘못된 응답";
+"errorInvalidData" = "잘못된 데이터 수신";
+"errorCountryNotFound" = "국가를 찾을 수 없음";
+"errorCountryNotSupported" = "이 국가는 지원 국가 목록에 없습니다";
+"errorCountryBoycotted" = "이 국가는 보이콧 국가 목록에 있습니다";
 "privacyPolicy" = "개인정보 처리방침"; 
