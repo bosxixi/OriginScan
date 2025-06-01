@@ -14,4 +14,18 @@
 "clear" = "مسح";
 "clearHistory" = "مسح السجل";
 "clearHistoryConfirmation" = "هل أنت متأكد أنك تريد مسح سجل المسح بالكامل؟ لا يمكن التراجع عن هذا الإجراء.";
-"cancel" = "إلغاء"; 
+"cancel" = "إلغاء";
+
+// Settings
+"countrySettings" = "إعدادات البلدان";
+"supportedCountries" = "البلدان المدعومة";
+"boycottedCountries" = "البلدان المقاطعة";
+"searchCountries" = "البحث عن البلدان";
+
+// Errors
+"errorInvalidURL" = "رابط غير صالح";
+"errorInvalidResponse" = "استجابة غير صالحة من الخادم";
+"errorInvalidData" = "بيانات غير صالحة";
+"errorCountryNotFound" = "البلد غير موجود";
+"errorCountryNotSupported" = "هذا البلد غير موجود في قائمة البلدان المدعومة";
+"errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة"; 

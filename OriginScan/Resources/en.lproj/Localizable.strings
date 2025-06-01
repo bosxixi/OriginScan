@@ -21,4 +21,18 @@
 "clear" = "Clear";
 "clearHistory" = "Clear History";
 "clearHistoryConfirmation" = "Are you sure you want to clear all scan history? This action cannot be undone.";
-"cancel" = "Cancel"; 
+"cancel" = "Cancel";
+
+// Settings
+"countrySettings" = "Country Settings";
+"supportedCountries" = "Supported Countries";
+"boycottedCountries" = "Boycotted Countries";
+"searchCountries" = "Search countries";
+
+// Errors
+"errorInvalidURL" = "Invalid URL";
+"errorInvalidResponse" = "Invalid response from server";
+"errorInvalidData" = "Invalid data received";
+"errorCountryNotFound" = "Country not found";
+"errorCountryNotSupported" = "This country is not in your supported countries list";
+"errorCountryBoycotted" = "This country is in your boycotted countries list"; 

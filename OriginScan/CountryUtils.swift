@@ -6,11 +6,21 @@ struct CountryDisplayNames {
 }
 
 class CountryUtils {
-    static func displayNames(for countryCode: String) -> CountryDisplayNames {
-        let uppercasedCode = countryCode.uppercased()
-        let englishName = Locale(identifier: "en").localizedString(forRegionCode: uppercasedCode) ?? uppercasedCode
-        let userLocale = Locale.current
-        let localizedName = userLocale.localizedString(forRegionCode: uppercasedCode) ?? uppercasedCode
-        return CountryDisplayNames(english: englishName, localized: localizedName)
+    static func displayNames(for countryCode: String) -> (english: String, localized: String) {
+        let locale = Locale(identifier: "en")
+        let currentLocale = Locale.current
+        
+        let englishName = locale.localizedString(forRegionCode: countryCode) ?? countryCode
+        let localizedName = currentLocale.localizedString(forRegionCode: countryCode) ?? englishName
+        
+        return (english: englishName, localized: localizedName)
+    }
+
+    static var countryList: [(code: String, name: String)] {
+        let codes = Locale.isoRegionCodes
+        return codes.map { code in
+            let name = Locale(identifier: "en").localizedString(forRegionCode: code) ?? code
+            return (code: code, name: name)
+        }.sorted { $0.name < $1.name }
     }
 } 

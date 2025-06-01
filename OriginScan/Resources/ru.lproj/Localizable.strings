@@ -16,4 +16,18 @@
 "clear" = "Очистить";
 "clearHistory" = "Очистить историю";
 "clearHistoryConfirmation" = "Вы уверены, что хотите очистить всю историю сканирования? Это действие нельзя отменить.";
-"cancel" = "Отмена"; 
+"cancel" = "Отмена";
+
+// Settings
+"countrySettings" = "Настройки стран";
+"supportedCountries" = "Поддерживаемые страны";
+"boycottedCountries" = "Бойкотируемые страны";
+"searchCountries" = "Поиск стран";
+
+// Errors
+"errorInvalidURL" = "Неверный URL";
+"errorInvalidResponse" = "Неверный ответ от сервера";
+"errorInvalidData" = "Получены неверные данные";
+"errorCountryNotFound" = "Страна не найдена";
+"errorCountryNotSupported" = "Эта страна не входит в список поддерживаемых стран";
+"errorCountryBoycotted" = "Эта страна входит в список бойкотируемых стран"; 

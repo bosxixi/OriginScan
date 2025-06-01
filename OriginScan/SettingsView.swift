@@ -5,21 +5,31 @@ struct SettingsView: View {
     @AppStorage("quickScan") private var quickScan: Bool = false
     
     var body: some View {
-        Form {
+        List {
             Section {
-                Toggle(NSLocalizedString("autoSearchAfterScan", comment: ""), isOn: $autoSearchAfterScan)
-            } footer: {
-                Text(NSLocalizedString("autoSearchAfterScanDescription", comment: ""))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                NavigationLink(destination: CountrySettingsView()) {
+                    Label(NSLocalizedString("countrySettings", comment: ""), systemImage: "globe")
+                }
             }
             
             Section {
-                Toggle(NSLocalizedString("quickScan", comment: ""), isOn: $quickScan)
-            } footer: {
-                Text(NSLocalizedString("quickScanDescription", comment: ""))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                Toggle(isOn: $autoSearchAfterScan) {
+                    VStack(alignment: .leading) {
+                        Text(NSLocalizedString("autoSearchAfterScan", comment: ""))
+                        Text(NSLocalizedString("autoSearchAfterScanDescription", comment: ""))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Toggle(isOn: $quickScan) {
+                    VStack(alignment: .leading) {
+                        Text(NSLocalizedString("quickScan", comment: ""))
+                        Text(NSLocalizedString("quickScanDescription", comment: ""))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
         .navigationTitle(NSLocalizedString("settings", comment: ""))
