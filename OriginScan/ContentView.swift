@@ -8,8 +8,9 @@
 import SwiftUI
 import AVFoundation
 
-struct CountryInfo: Identifiable {
+struct ScannedCountryInfo: Identifiable {
     let id = UUID()
+    let countryCode: String
     let englishName: String
     let localizedName: String
     let flag: String
@@ -18,7 +19,7 @@ struct CountryInfo: Identifiable {
 struct ContentView: View {
     @State private var barcode: String = ""
     @State private var isScanning: Bool = false
-    @State private var countryInfo: CountryInfo?
+    @State private var countryInfo: ScannedCountryInfo?
     @State private var isScannerPresented: Bool = false
     @State private var isLoading: Bool = false
     @State private var isMenuPresented: Bool = false
@@ -29,6 +30,14 @@ struct ContentView: View {
     @AppStorage("quickScan") private var quickScan: Bool = false
     @FocusState private var isBarcodeFieldFocused: Bool
     @State private var isViewReady: Bool = false
+
+    private func isSimulator() -> Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
 
     var body: some View {
         VStack(spacing: 20) {
@@ -65,7 +74,16 @@ struct ContentView: View {
             }
             Button(action: {
                 LogService.shared.logClick(itemId: "scanButton", itemType: "scan")
-                if purchaseService.canScan() {
+                if isSimulator() {
+                    barcode = "9415077150748"
+                    if purchaseService.canScan() {
+                        isLoading = true
+                        purchaseService.useScan(barcode: barcode)
+                        fetchIssuingCountry(for: barcode)
+                    } else {
+                        showPurchaseView = true
+                    }
+                } else if purchaseService.canScan() {
                     isScannerPresented = true
                 } else {
                     showPurchaseView = true
@@ -93,7 +111,16 @@ struct ContentView: View {
 
             HStack(spacing: 20) {
                 Button(action: {
-                    if purchaseService.canScan() {
+                    if isSimulator() {
+                        barcode = "9415077150748"
+                        if purchaseService.canScan() {
+                            isLoading = true
+                            purchaseService.useScan(barcode: barcode)
+                            fetchIssuingCountry(for: barcode)
+                        } else {
+                            showPurchaseView = true
+                        }
+                    } else if purchaseService.canScan() {
                         isScannerPresented = true
                     } else {
                         showPurchaseView = true
@@ -113,14 +140,16 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isScannerPresented) {
-                BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
-                    if !scannedCode.isEmpty {
-                        if autoSearchAfterScan {
-                            isLoading = true
-                            purchaseService.useScan(barcode: scannedCode)
-                            fetchIssuingCountry(for: scannedCode)
-                        } else {
-                            barcode = scannedCode
+                if !isSimulator() {
+                    BarcodeScannerView(scannedCode: $barcode, isPresented: $isScannerPresented) { scannedCode in
+                        if !scannedCode.isEmpty {
+                            if autoSearchAfterScan {
+                                isLoading = true
+                                purchaseService.useScan(barcode: scannedCode)
+                                fetchIssuingCountry(for: scannedCode)
+                            } else {
+                                barcode = scannedCode
+                            }
                         }
                     }
                 }
@@ -167,9 +196,20 @@ struct ContentView: View {
             VStack(spacing: 15) {
                 Text(country.flag)
                     .font(.system(size: 100))
-                Text(country.englishName)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                HStack(spacing: 8) {
+                    Text(country.englishName)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    if Settings.shared.isCountrySupported(country.countryCode) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundColor(.green)
+                            .font(.title2)
+                    } else if Settings.shared.isCountryBoycotted(country.countryCode) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.red)
+                            .font(.title2)
+                    }
+                }
                 if country.localizedName != country.englishName {
                     Text(country.localizedName)
                         .font(.title3)
@@ -204,7 +244,7 @@ struct ContentView: View {
                 case .success(let issuingCountry):
                     let code = String(issuingCountry.prefix(2)).uppercased()
                     let displayNames = CountryUtils.displayNames(for: code)
-                    countryInfo = CountryInfo(englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
+                    countryInfo = ScannedCountryInfo(countryCode: code, englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
                     // Log successful country search
                     LogService.shared.logCountrySearch(barcode: barcode, country: displayNames.english)
                     // Save to history
