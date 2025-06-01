@@ -28,6 +28,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     private var initialZoom: CGFloat = 1.0
     private var currentCameraPosition: AVCaptureDevice.Position = .back
+    private var isFrameRestricted: Bool = true  // Add state for frame restriction
     
     // Constants for the scanning frame
     private let scanningFrameWidth: CGFloat = 300  // Width for 3:2 ratio
@@ -224,6 +225,17 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         cameraToggleButton.configuration = cameraToggleConfig
         cameraToggleButton.addTarget(self, action: #selector(toggleCamera), for: .touchUpInside)
         view.addSubview(cameraToggleButton)
+        
+        // Add frame restriction toggle button
+        let frameToggleButton = UIButton(type: .system)
+        frameToggleButton.setImage(UIImage(systemName: "rectangle.dashed"), for: .normal)
+        frameToggleButton.tintColor = .white
+        frameToggleButton.frame = CGRect(x: 20, y: 90, width: 50, height: 50)
+        var frameToggleConfig = UIButton.Configuration.plain()
+        frameToggleConfig.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        frameToggleButton.configuration = frameToggleConfig
+        frameToggleButton.addTarget(self, action: #selector(toggleFrameRestriction), for: .touchUpInside)
+        view.addSubview(frameToggleButton)
     }
     
     private func setupCornerMarkers(for frame: CGRect) {
@@ -346,21 +358,61 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         switchCamera()
     }
 
+    @objc private func toggleFrameRestriction() {
+        isFrameRestricted.toggle()
+        
+        // Update button appearance
+        if let button = view.subviews.first(where: { $0 is UIButton && $0.frame.origin.x == 20 && $0.frame.origin.y == 90 }) as? UIButton {
+            let imageName = isFrameRestricted ? "rectangle.dashed" : "rectangle.dashed.badge.ellipsis"
+            button.setImage(UIImage(systemName: imageName), for: .normal)
+        }
+        
+        // Update corner markers visibility
+        cornerMarkers.forEach { $0.isHidden = !isFrameRestricted }
+        
+        // Update scanning line visibility
+        scanningLine.isHidden = !isFrameRestricted
+    }
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            scannedCode = stringValue
-            isPresented = false
             
-            // Automatically trigger search after scanning
-            if !stringValue.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.onScanComplete(stringValue)
+            if isFrameRestricted {
+                // Convert the barcode's bounds to the preview layer's coordinate space
+                let barcodeBounds = previewLayer.layerRectConverted(fromMetadataOutputRect: readableObject.bounds)
+                
+                // Get the scanning frame bounds
+                let frameX = (view.bounds.width - scanningFrameWidth) / 2
+                let frameY = frameTopOffset
+                let scanningFrame = CGRect(x: frameX, y: frameY, width: scanningFrameWidth, height: scanningFrameHeight)
+                
+                // Only process if the barcode is within the scanning frame
+                if scanningFrame.contains(barcodeBounds) {
+                    processScannedCode(stringValue)
+                } else {
+                    // If barcode is outside the frame, restart scanning
+                    captureSession.startRunning()
                 }
+            } else {
+                // Process all barcodes when frame restriction is disabled
+                processScannedCode(stringValue)
+            }
+        }
+    }
+    
+    private func processScannedCode(_ stringValue: String) {
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        scannedCode = stringValue
+        isPresented = false
+        
+        // Automatically trigger search after scanning
+        if !stringValue.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.onScanComplete(stringValue)
             }
         }
     }
