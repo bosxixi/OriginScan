@@ -33,4 +33,5 @@
 "errorCountryNotFound" = "Ülke bulunamadı";
 "errorCountryNotSupported" = "Bu ülke desteklenen ülkeler listenizde değil";
 "errorCountryBoycotted" = "Bu ülke boykot edilen ülkeler listenizde";
-"privacyPolicy" = "Gizlilik Politikası"; 
+"privacyPolicy" = "Gizlilik Politikası";
+"contactUs" = "Bize Ulaşın"; 

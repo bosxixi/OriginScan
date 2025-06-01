@@ -33,4 +33,5 @@
 "errorCountryNotFound" = "Paese non trovato";
 "errorCountryNotSupported" = "Questo paese non è nella lista dei paesi supportati";
 "errorCountryBoycotted" = "Questo paese è nella lista dei paesi boicottati";
-"privacyPolicy" = "Informativa sulla Privacy"; 
+"privacyPolicy" = "Informativa sulla Privacy";
+"contactUs" = "Contattaci"; 

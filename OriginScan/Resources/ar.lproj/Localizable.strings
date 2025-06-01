@@ -35,4 +35,5 @@
 "errorCountryNotFound" = "البلد غير موجود";
 "errorCountryNotSupported" = "هذا البلد غير موجود في قائمة البلدان المدعومة";
 "errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة";
-"privacyPolicy" = "سياسة الخصوصية"; 
+"privacyPolicy" = "سياسة الخصوصية";
+"contactUs" = "اتصل بنا"; 

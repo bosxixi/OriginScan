@@ -37,4 +37,5 @@
 "errorCountryNotFound" = "Страна не найдена";
 "errorCountryNotSupported" = "Эта страна не входит в список поддерживаемых стран";
 "errorCountryBoycotted" = "Эта страна входит в список бойкотируемых стран";
-"privacyPolicy" = "Политика конфиденциальности"; 
+"privacyPolicy" = "Политика конфиденциальности";
+"contactUs" = "Связаться с нами"; 

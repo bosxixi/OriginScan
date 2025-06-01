@@ -33,4 +33,5 @@
 "errorInvalidURL" = "无效的URL";
 "errorInvalidResponse" = "服务器响应无效";
 "errorInvalidData" = "接收到的数据无效";
-"errorCountryNotFound" = "未找到国家"; 
+"errorCountryNotFound" = "未找到国家";
+"contactUs" = "联系我们"; 

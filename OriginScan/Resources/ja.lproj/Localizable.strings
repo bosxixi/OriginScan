@@ -33,4 +33,5 @@
 "errorCountryNotFound" = "国が見つかりません";
 "errorCountryNotSupported" = "この国は対応国リストにありません";
 "errorCountryBoycotted" = "この国はボイコット国リストにあります";
-"privacyPolicy" = "プライバシーポリシー"; 
+"privacyPolicy" = "プライバシーポリシー";
+"contactUs" = "お問い合わせ"; 
