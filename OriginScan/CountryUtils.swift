@@ -23,4 +23,15 @@ class CountryUtils {
             return (code: code, name: name)
         }.sorted { $0.name < $1.name }
     }
+
+    static func flagEmoji(for countryCode: String) -> String {
+        let base: UInt32 = 127397
+        var flagString = ""
+        for scalar in countryCode.uppercased().unicodeScalars {
+            if let scalarValue = UnicodeScalar(base + scalar.value) {
+                flagString.append(String(scalarValue))
+            }
+        }
+        return flagString
+    }
 } 

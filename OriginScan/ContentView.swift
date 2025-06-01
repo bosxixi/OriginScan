@@ -244,11 +244,11 @@ struct ContentView: View {
                 case .success(let issuingCountry):
                     let code = String(issuingCountry.prefix(2)).uppercased()
                     let displayNames = CountryUtils.displayNames(for: code)
-                    countryInfo = ScannedCountryInfo(countryCode: code, englishName: displayNames.english, localizedName: displayNames.localized, flag: flagEmoji(for: code))
+                    countryInfo = ScannedCountryInfo(countryCode: code, englishName: displayNames.english, localizedName: displayNames.localized, flag: CountryUtils.flagEmoji(for: code))
                     // Log successful country search
                     LogService.shared.logCountrySearch(barcode: barcode, country: displayNames.english)
                     // Save to history
-                    let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, localizedCountryName: displayNames.localized, flag: flagEmoji(for: code), barcode: barcode)
+                    let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, localizedCountryName: displayNames.localized, flag: CountryUtils.flagEmoji(for: code), barcode: barcode)
                     ScanHistoryService.shared.add(item: historyItem)
                 case .failure(let error):
                     countryInfo = nil
@@ -257,22 +257,6 @@ struct ContentView: View {
                 }
             }
         }
-    }
-
-    private func flagEmoji(for country: String) -> String {
-        let base: UInt32 = 127397 // Unicode scalar for regional indicator symbol letter A
-        var flagString = ""
-        
-        // Convert country name to country code (you might need to add more mappings)
-        let countryCode = country.prefix(2).uppercased()
-        
-        for scalar in countryCode.unicodeScalars {
-            if let scalarValue = UnicodeScalar(base + scalar.value) {
-                flagString.append(String(scalarValue))
-            }
-        }
-        
-        return flagString
     }
 }
 

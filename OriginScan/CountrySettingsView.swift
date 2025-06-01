@@ -39,7 +39,7 @@ struct CountrySettingsView: View {
             List {
                 ForEach(filteredCountries, id: \.code) { country in
                     HStack(spacing: 16) {
-                        Text(flagEmoji(for: country.code))
+                        Text(CountryUtils.flagEmoji(for: country.code))
                             .font(.system(size: 40))
                             .frame(width: 48, height: 48)
                             .background(Color(.systemGray6))
@@ -89,17 +89,6 @@ struct CountrySettingsView: View {
         .navigationTitle(showingSupportedCountries ? 
             NSLocalizedString("supportedCountries", comment: "") : 
             NSLocalizedString("boycottedCountries", comment: ""))
-    }
-    
-    private func flagEmoji(for countryCode: String) -> String {
-        let base: UInt32 = 127397
-        var flagString = ""
-        for scalar in countryCode.uppercased().unicodeScalars {
-            if let scalarValue = UnicodeScalar(base + scalar.value) {
-                flagString.append(String(scalarValue))
-            }
-        }
-        return flagString
     }
 }
 
