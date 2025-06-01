@@ -18,4 +18,5 @@
 "upgradeToPremium" = "อัพเกรดเป็นพรีเมียม";
 "getAdditionalScans" = "รับการสแกนเพิ่มเติม 100 ครั้งในราคา ฿99";
 "purchaseScans" = "ซื้อการสแกน 100 ครั้ง";
-"maybeLater" = "ไว้ก่อน"; 
+"maybeLater" = "ไว้ก่อน";
+"countrySettings" = "ตั้งค่าประเทศ"; 
