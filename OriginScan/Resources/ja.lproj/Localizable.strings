@@ -22,4 +22,5 @@
 "clear" = "クリア";
 "clearHistory" = "履歴をクリア";
 "clearHistoryConfirmation" = "すべてのスキャン履歴をクリアしてもよろしいですか？この操作は元に戻せません。";
-"cancel" = "キャンセル"; 
+"cancel" = "キャンセル";
+"countrySettings" = "国設定"; 

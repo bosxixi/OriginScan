@@ -22,4 +22,5 @@
 "clear" = "Limpar";
 "clearHistory" = "Limpar histórico";
 "clearHistoryConfirmation" = "Tem certeza que deseja limpar todo o histórico de digitalizações? Esta ação não pode ser desfeita.";
-"cancel" = "Cancelar"; 
+"cancel" = "Cancelar";
+"countrySettings" = "Configurações de País"; 

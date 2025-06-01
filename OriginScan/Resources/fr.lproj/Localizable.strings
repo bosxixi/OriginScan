@@ -22,4 +22,5 @@
 "clear" = "Effacer";
 "clearHistory" = "Effacer l'historique";
 "clearHistoryConfirmation" = "Êtes-vous sûr de vouloir effacer tout l'historique des scans ? Cette action ne peut pas être annulée.";
-"cancel" = "Annuler"; 
+"cancel" = "Annuler";
+"countrySettings" = "Paramètres des Pays"; 

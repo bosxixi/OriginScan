@@ -22,4 +22,5 @@
 "clear" = "Borrar";
 "clearHistory" = "Borrar historial";
 "clearHistoryConfirmation" = "¿Está seguro de que desea borrar todo el historial de escaneos? Esta acción no se puede deshacer.";
-"cancel" = "Cancelar"; 
+"cancel" = "Cancelar";
+"countrySettings" = "Configuración de Países"; 
