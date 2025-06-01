@@ -31,6 +31,12 @@ struct SettingsView: View {
                     }
                 }
             }
+            
+            Section {
+                NavigationLink(destination: PrivacyPolicyView()) {
+                    Label(NSLocalizedString("privacyPolicy", comment: ""), systemImage: "hand.raised")
+                }
+            }
         }
         .navigationTitle(NSLocalizedString("settings", comment: ""))
     }

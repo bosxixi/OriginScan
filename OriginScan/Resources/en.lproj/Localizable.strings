@@ -35,4 +35,5 @@
 "errorInvalidData" = "Invalid data received";
 "errorCountryNotFound" = "Country not found";
 "errorCountryNotSupported" = "This country is not in your supported countries list";
-"errorCountryBoycotted" = "This country is in your boycotted countries list"; 
+"errorCountryBoycotted" = "This country is in your boycotted countries list";
+"privacyPolicy" = "Privacy Policy"; 

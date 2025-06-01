@@ -23,4 +23,5 @@
 "clearHistory" = "스캔 기록 지우기";
 "clearHistoryConfirmation" = "모든 스캔 기록을 지우시겠습니까? 이 작업은 취소할 수 없습니다.";
 "cancel" = "취소";
-"countrySettings" = "국가 설정"; 
+"countrySettings" = "국가 설정";
+"privacyPolicy" = "개인정보 처리방침"; 

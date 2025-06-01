@@ -13,4 +13,5 @@
 "about" = "Hakkında";
 "quickScan" = "Hızlı Tarama";
 "quickScanDescription" = "Etkinleştirildiğinde, uygulama başlatıldıktan sonra otomatik olarak tarayıcıyı açacaktır.";
-"countrySettings" = "Ülke Ayarları"; 
+"countrySettings" = "Ülke Ayarları";
+"privacyPolicy" = "Gizlilik Politikası"; 

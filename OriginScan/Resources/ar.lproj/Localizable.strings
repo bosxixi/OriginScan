@@ -28,4 +28,5 @@
 "errorInvalidData" = "بيانات غير صالحة";
 "errorCountryNotFound" = "البلد غير موجود";
 "errorCountryNotSupported" = "هذا البلد غير موجود في قائمة البلدان المدعومة";
-"errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة"; 
+"errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة";
+"privacyPolicy" = "سياسة الخصوصية"; 

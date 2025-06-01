@@ -28,4 +28,5 @@
 "searchCountries" = "搜索国家";
 "errorCountryNotSupported" = "该国家不在您的支持国家列表中";
 "errorCountryBoycotted" = "该国家在您的抵制国家列表中";
-"countrySettings" = "国家设置"; 
+"countrySettings" = "国家设置";
+"privacyPolicy" = "隐私政策"; 

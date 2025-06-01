@@ -23,4 +23,5 @@
 "clearHistory" = "Verlauf löschen";
 "clearHistoryConfirmation" = "Sind Sie sicher, dass Sie den gesamten Scan-Verlauf löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.";
 "cancel" = "Abbrechen";
-"countrySettings" = "Länder-Einstellungen"; 
+"countrySettings" = "Länder-Einstellungen";
+"privacyPolicy" = "Datenschutzrichtlinie"; 
