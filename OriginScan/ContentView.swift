@@ -30,6 +30,8 @@ struct ContentView: View {
     @AppStorage("quickScan") private var quickScan: Bool = false
     @FocusState private var isBarcodeFieldFocused: Bool
     @State private var isViewReady: Bool = false
+    @State private var alertMessage: String? = nil
+    @State private var isAlertPresented: Bool = false
 
     private func isSimulator() -> Bool {
         #if targetEnvironment(simulator)
@@ -233,6 +235,10 @@ struct ContentView: View {
         .sheet(isPresented: $showPurchaseView) {
             PurchaseView()
         }
+
+        .alert(isPresented: $isAlertPresented) {
+            Alert(title: Text("Error"), message: Text(alertMessage ?? "An unknown error occurred."), dismissButton: .default(Text("OK")))
+        }
     }
 
     private func fetchIssuingCountry(for barcode: String) {
@@ -254,6 +260,19 @@ struct ContentView: View {
                     countryInfo = nil
                     // Log error
                     LogService.shared.logError(error: error, context: "fetchIssuingCountry")
+
+                    // Ensure server error message is shown
+                    if let networkError = error as? NetworkError {
+                        switch networkError {
+                        case .serverError(let message):
+                            alertMessage = message
+                        default:
+                            alertMessage = networkError.localizedDescription
+                        }
+                    } else {
+                        alertMessage = error.localizedDescription
+                    }
+                    isAlertPresented = true
                 }
             }
         }

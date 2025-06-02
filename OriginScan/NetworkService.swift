@@ -24,6 +24,19 @@ class NetworkService {
                 return
             }
             
+            if httpResponse.statusCode == 400, let data = data {
+                // Try to parse error message from response
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let message = json["message"] as? String {
+                    completion(.failure(NetworkError.serverError(message: message)))
+                } else if let stringMessage = String(data: data, encoding: .utf8), !stringMessage.isEmpty {
+                    completion(.failure(NetworkError.serverError(message: stringMessage)))
+                } else {
+                    completion(.failure(NetworkError.serverError(message: NSLocalizedString("errorInvalidResponse", comment: ""))))
+                }
+                return
+            }
+            
             guard (200...299).contains(httpResponse.statusCode) else {
                 completion(.failure(NetworkError.invalidResponse))
                 return
@@ -57,8 +70,22 @@ class NetworkService {
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 400 {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+               let message = json["message"] as? String {
+                throw NetworkError.serverError(message: message)
+            } else if let stringMessage = String(data: data, encoding: .utf8), !stringMessage.isEmpty {
+                throw NetworkError.serverError(message: stringMessage)
+            } else {
+                throw NetworkError.serverError(message: NSLocalizedString("errorInvalidResponse", comment: ""))
+            }
+        }
+        
+        guard (200...299).contains(httpResponse.statusCode) else {
             throw NetworkError.invalidResponse
         }
         
@@ -85,6 +112,7 @@ enum NetworkError: Error {
     case countryNotSupported
     case countryBoycotted
     case networkError(Error)
+    case serverError(message: String)
     
     var localizedDescription: String {
         switch self {
@@ -102,6 +130,8 @@ enum NetworkError: Error {
             return NSLocalizedString("errorCountryBoycotted", comment: "")
         case .networkError(let error):
             return error.localizedDescription
+        case .serverError(let message):
+            return message
         }
     }
 } 
