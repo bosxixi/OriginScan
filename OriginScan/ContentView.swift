@@ -80,7 +80,6 @@ struct ContentView: View {
                     barcode = "9415077150748"
                     if purchaseService.canScan() {
                         isLoading = true
-                        purchaseService.useScan(barcode: barcode)
                         fetchIssuingCountry(for: barcode)
                     } else {
                         showPurchaseView = true
@@ -117,7 +116,6 @@ struct ContentView: View {
                         barcode = "9415077150748"
                         if purchaseService.canScan() {
                             isLoading = true
-                            purchaseService.useScan(barcode: barcode)
                             fetchIssuingCountry(for: barcode)
                         } else {
                             showPurchaseView = true
@@ -147,7 +145,6 @@ struct ContentView: View {
                         if !scannedCode.isEmpty {
                             if autoSearchAfterScan {
                                 isLoading = true
-                                purchaseService.useScan(barcode: scannedCode)
                                 fetchIssuingCountry(for: scannedCode)
                             } else {
                                 barcode = scannedCode
@@ -163,7 +160,6 @@ struct ContentView: View {
                     isBarcodeFieldFocused = true
                 } else if purchaseService.canScan() {
                     isLoading = true
-                    purchaseService.useScan(barcode: barcode)
                     fetchIssuingCountry(for: barcode)
                 } else {
                     showPurchaseView = true
@@ -256,6 +252,8 @@ struct ContentView: View {
                     // Save to history
                     let historyItem = ScanHistoryItem(countryCode: code, countryName: displayNames.english, localizedCountryName: displayNames.localized, flag: CountryUtils.flagEmoji(for: code), barcode: barcode)
                     ScanHistoryService.shared.add(item: historyItem)
+                    // Only reduce scan count after successful search
+                    purchaseService.useScan(barcode: barcode)
                 case .failure(let error):
                     countryInfo = nil
                     // Log error
