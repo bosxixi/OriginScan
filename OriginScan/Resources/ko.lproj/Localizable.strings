@@ -34,4 +34,5 @@
 "errorCountryNotSupported" = "이 국가는 지원 국가 목록에 없습니다";
 "errorCountryBoycotted" = "이 국가는 보이콧 국가 목록에 있습니다";
 "privacyPolicy" = "개인정보 처리방침";
-"contactUs" = "문의하기"; 
+"contactUs" = "문의하기";
+"scanTipTapToFocus" = "스캔이 느릴 경우 화면을 탭하여 초점을 맞추세요"; 

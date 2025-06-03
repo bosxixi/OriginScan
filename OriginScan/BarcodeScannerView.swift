@@ -37,6 +37,9 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     private let cornerMarkerThickness: CGFloat = 3
     private let overlayColor = UIColor.black.withAlphaComponent(0.5)
     private let frameTopOffset: CGFloat = 120
+    private var scanTimeoutTimer: Timer?
+    private var tipLabel: UILabel?
+    private var tipVisible = false
 
     init(scannedCode: Binding<String>, isPresented: Binding<Bool>, onScanComplete: @escaping (String) -> Void) {
         _scannedCode = scannedCode
@@ -70,6 +73,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         @unknown default:
             dismissScanner()
         }
+
+        // Add tap gesture for focus
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapToFocus(_:)))
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setupCamera() {
@@ -118,6 +125,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         view.addGestureRecognizer(pinchGesture)
 
         captureSession.startRunning()
+        startScanTimeoutTimer()
     }
     
     private func getCameraDevice() -> AVCaptureDevice? {
@@ -374,8 +382,66 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         scanningLine.isHidden = !isFrameRestricted
     }
 
+    private func startScanTimeoutTimer() {
+        scanTimeoutTimer?.invalidate()
+        tipLabel?.removeFromSuperview()
+        tipVisible = false
+        scanTimeoutTimer = Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { [weak self] _ in
+            self?.showScanTip()
+        }
+    }
+
+    private func stopScanTimeoutTimer() {
+        scanTimeoutTimer?.invalidate()
+        scanTimeoutTimer = nil
+        tipLabel?.removeFromSuperview()
+        tipVisible = false
+    }
+
+    private func showScanTip() {
+        guard !tipVisible else { return }
+        let label = UILabel()
+        label.text = NSLocalizedString("scanTipTapToFocus", comment: "")
+        label.textColor = .yellow
+        label.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = 2
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
+        let width: CGFloat = min(view.bounds.width - 40, 320)
+        label.frame = CGRect(x: (view.bounds.width - width) / 2, y: view.bounds.height - 120, width: width, height: 50)
+        view.addSubview(label)
+        tipLabel = label
+        tipVisible = true
+    }
+
+    @objc private func handleTapToFocus(_ gesture: UITapGestureRecognizer) {
+        let point = gesture.location(in: view)
+        guard let device = (captureSession.inputs.first as? AVCaptureDeviceInput)?.device else { return }
+        let focusPoint = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+        do {
+            try device.lockForConfiguration()
+            if device.isFocusPointOfInterestSupported {
+                device.focusPointOfInterest = focusPoint
+                device.focusMode = .autoFocus
+            }
+            if device.isExposurePointOfInterestSupported {
+                device.exposurePointOfInterest = focusPoint
+                device.exposureMode = .autoExpose
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print("Error focusing camera: \(error.localizedDescription)")
+        }
+        tipLabel?.removeFromSuperview()
+        tipVisible = false
+        startScanTimeoutTimer()
+    }
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
+        stopScanTimeoutTimer()
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
@@ -408,6 +474,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         scannedCode = stringValue
         isPresented = false
+        stopScanTimeoutTimer()
         
         // Automatically trigger search after scanning
         if !stringValue.isEmpty {
@@ -423,6 +490,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if (captureSession.isRunning) {
             captureSession.stopRunning()
         }
+        stopScanTimeoutTimer()
     }
 
     override var prefersStatusBarHidden: Bool {

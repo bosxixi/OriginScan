@@ -24,4 +24,5 @@
 "clearHistoryConfirmation" = "Sind Sie sicher, dass Sie den gesamten Scan-Verlauf löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.";
 "cancel" = "Abbrechen";
 "countrySettings" = "Länder-Einstellungen";
-"privacyPolicy" = "Datenschutzrichtlinie"; 
+"privacyPolicy" = "Datenschutzrichtlinie";
+"scanTipTapToFocus" = "Wenn das Scannen langsam ist, tippen Sie auf den Bildschirm, um zu fokussieren"; 

@@ -34,4 +34,5 @@
 "errorCountryNotSupported" = "Este país não está na sua lista de países suportados";
 "errorCountryBoycotted" = "Este país está na sua lista de países boicotados";
 "privacyPolicy" = "Política de Privacidade";
-"contactUs" = "Entre em Contato"; 
+"contactUs" = "Entre em Contato";
+"scanTipTapToFocus" = "Se a leitura estiver lenta, toque na tela para focar"; 

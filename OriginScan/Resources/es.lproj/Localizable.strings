@@ -24,4 +24,5 @@
 "clearHistoryConfirmation" = "¿Está seguro de que desea borrar todo el historial de escaneos? Esta acción no se puede deshacer.";
 "cancel" = "Cancelar";
 "countrySettings" = "Configuración de Países";
-"privacyPolicy" = "Política de Privacidad"; 
+"privacyPolicy" = "Política de Privacidad";
+"scanTipTapToFocus" = "Si el escaneo es lento, toca la pantalla para enfocar"; 

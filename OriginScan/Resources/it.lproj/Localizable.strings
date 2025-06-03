@@ -34,4 +34,5 @@
 "errorCountryNotSupported" = "Questo paese non è nella lista dei paesi supportati";
 "errorCountryBoycotted" = "Questo paese è nella lista dei paesi boicottati";
 "privacyPolicy" = "Informativa sulla Privacy";
-"contactUs" = "Contattaci"; 
+"contactUs" = "Contattaci";
+"scanTipTapToFocus" = "Se la scansione è lenta, tocca lo schermo per mettere a fuoco"; 

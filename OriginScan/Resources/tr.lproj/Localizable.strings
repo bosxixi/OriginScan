@@ -34,4 +34,5 @@
 "errorCountryNotSupported" = "Bu ülke desteklenen ülkeler listenizde değil";
 "errorCountryBoycotted" = "Bu ülke boykot edilen ülkeler listenizde";
 "privacyPolicy" = "Gizlilik Politikası";
-"contactUs" = "Bize Ulaşın"; 
+"contactUs" = "Bize Ulaşın";
+"scanTipTapToFocus" = "Tarama yavaşsa, odaklamak için ekrana dokunun"; 

@@ -34,4 +34,5 @@
 "errorCountryNotSupported" = "この国は対応国リストにありません";
 "errorCountryBoycotted" = "この国はボイコット国リストにあります";
 "privacyPolicy" = "プライバシーポリシー";
-"contactUs" = "お問い合わせ"; 
+"contactUs" = "お問い合わせ";
+"scanTipTapToFocus" = "スキャンが遅い場合は、画面をタップしてフォーカスしてください"; 

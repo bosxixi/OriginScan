@@ -36,4 +36,5 @@
 "errorCountryNotSupported" = "هذا البلد غير موجود في قائمة البلدان المدعومة";
 "errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة";
 "privacyPolicy" = "سياسة الخصوصية";
-"contactUs" = "اتصل بنا"; 
+"contactUs" = "اتصل بنا";
+"scanTipTapToFocus" = "إذا كان المسح بطيئًا، انقر على الشاشة للتركيز"; 
