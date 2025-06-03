@@ -414,6 +414,31 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         view.addSubview(label)
         tipLabel = label
         tipVisible = true
+        // Trigger auto focus at center
+        triggerAutoFocusAtCenter()
+    }
+
+    private func triggerAutoFocusAtCenter() {
+        // Focus at the center of the scanning frame
+        let frameX = (view.bounds.width - scanningFrameWidth) / 2
+        let frameY = frameTopOffset
+        let focusPointInView = CGPoint(x: frameX + scanningFrameWidth / 2, y: frameY + scanningFrameHeight / 2)
+        guard let device = (captureSession.inputs.first as? AVCaptureDeviceInput)?.device else { return }
+        let focusPoint = previewLayer.captureDevicePointConverted(fromLayerPoint: focusPointInView)
+        do {
+            try device.lockForConfiguration()
+            if device.isFocusPointOfInterestSupported {
+                device.focusPointOfInterest = focusPoint
+                device.focusMode = .autoFocus
+            }
+            if device.isExposurePointOfInterestSupported {
+                device.exposurePointOfInterest = focusPoint
+                device.exposureMode = .autoExpose
+            }
+            device.unlockForConfiguration()
+        } catch {
+            print("Error auto-focusing camera: \(error.localizedDescription)")
+        }
     }
 
     @objc private func handleTapToFocus(_ gesture: UITapGestureRecognizer) {
