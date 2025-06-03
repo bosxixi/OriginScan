@@ -160,6 +160,7 @@ struct ContentView: View {
                     isBarcodeFieldFocused = true
                 } else if purchaseService.canScan() {
                     isLoading = true
+                    if isBarcodeFieldFocused { isBarcodeFieldFocused = false }
                     fetchIssuingCountry(for: barcode)
                 } else {
                     showPurchaseView = true
