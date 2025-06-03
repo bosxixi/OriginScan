@@ -141,15 +141,15 @@ class LogService {
     /// Logs an error event
     /// - Parameters:
     ///   - error: The error that occurred
-    ///   - context: Additional context about where the error occurred
+    ///   - properties: Additional context or info about where the error occurred (e.g., barcode, endpoint, etc.)
     @MainActor
-    func logError(error: Error, context: String) {
-        let properties: [String: String] = [
+    func logError(error: Error, properties: [String: String] = [:]) {
+        var props: [String: String] = [
             "error": error.localizedDescription,
-            "context": context,
             "timestamp": ISO8601DateFormatter().string(from: Date())
         ]
-        logEvent(method: "Error", properties: properties)
+        for (k, v) in properties { props[k] = v }
+        logEvent(method: "Error", properties: props)
     }
     
     /// Logs an IPA display name event
@@ -207,5 +207,12 @@ class LogService {
             properties["value"] = value
         }
         logEvent(method: "Conversion", properties: properties)
+    }
+    
+    // Deprecated: use the new logError(error:properties:) instead
+    @available(*, deprecated, message: "Use logError(error:properties:) instead.")
+    @MainActor
+    func logError(error: Error, context: String) {
+        logError(error: error, properties: ["context": context])
     }
 } 

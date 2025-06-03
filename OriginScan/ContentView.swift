@@ -256,8 +256,8 @@ struct ContentView: View {
                     purchaseService.useScan(barcode: barcode)
                 case .failure(let error):
                     countryInfo = nil
-                    // Log error
-                    LogService.shared.logError(error: error, context: "fetchIssuingCountry")
+                    // Log error with barcode (ean) and context
+                    LogService.shared.logError(error: error, properties: ["barcode": barcode, "context": "fetchIssuingCountry"])
 
                     // Ensure server error message is shown
                     if let networkError = error as? NetworkError {
