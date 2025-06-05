@@ -35,4 +35,5 @@
 "errorCountryBoycotted" = "ประเทศนี้อยู่ในรายการประเทศที่คว่ำบาตรของคุณ";
 "privacyPolicy" = "นโยบายความเป็นส่วนตัว";
 "contactUs" = "ติดต่อเรา";
-"scanTipTapToFocus" = "หากการสแกนช้า ให้แตะหน้าจอเพื่อโฟกัส"; 
+"scanTipTapToFocus" = "หากการสแกนช้า ให้แตะหน้าจอเพื่อโฟกัส";
+"purchaseMoreScans" = "ซื้อการสแกนเพิ่มเติม"; 

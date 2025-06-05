@@ -34,15 +34,7 @@ class PurchaseService: ObservableObject {
     }
     
     func useScan(barcode: String) {
-        // Check if this barcode has been scanned before
-        let historyService = ScanHistoryService.shared
-        let hasBeenScanned = historyService.items.contains { $0.barcode == barcode }
-        
-        // Only reduce scan count if this is a new barcode
-        if !hasBeenScanned {
-            remainingScans -= 1
-            userDefaults.set(remainingScans, forKey: "remainingScans")
-        }
+        ScanHistoryService.shared.reduceScanCountIfNeeded(barcode: barcode)
     }
     
     private func listenForTransactions() async {

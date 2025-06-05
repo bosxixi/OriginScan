@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PurchaseView: View {
+    var showCloseButton: Bool = true
     @Environment(\.dismiss) private var dismiss
     @StateObject private var purchaseService = PurchaseService.shared
     
@@ -70,9 +71,7 @@ struct PurchaseView: View {
                 }
             }
             .padding()
-            .navigationBarItems(trailing: Button(NSLocalizedString("close", comment: "")) {
-                dismiss()
-            })
+            .navigationBarItems(trailing: showCloseButton ? AnyView(Button(NSLocalizedString("close", comment: "")) { dismiss() }) : AnyView(EmptyView()))
         }
     }
 } 

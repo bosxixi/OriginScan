@@ -43,6 +43,9 @@ class ScanHistoryService: ObservableObject {
             )
         } else {
             items.insert(item, at: 0)
+            Task { @MainActor in
+                reduceScanCountIfNeeded(barcode: item.barcode)
+            }
         }
         save()
     }
@@ -62,6 +65,17 @@ class ScanHistoryService: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
            let decoded = try? JSONDecoder().decode([ScanHistoryItem].self, from: data) {
             items = decoded
+        }
+    }
+    
+    @MainActor
+    func reduceScanCountIfNeeded(barcode: String) {
+        // Only reduce scan count if this is a new barcode
+        let hasBeenScanned = items.contains { $0.barcode == barcode }
+        if !hasBeenScanned {
+            let purchaseService = PurchaseService.shared
+            purchaseService.remainingScans -= 1
+            UserDefaults.standard.set(purchaseService.remainingScans, forKey: "remainingScans")
         }
     }
 } 

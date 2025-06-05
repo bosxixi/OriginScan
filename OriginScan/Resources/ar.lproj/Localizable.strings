@@ -37,4 +37,5 @@
 "errorCountryBoycotted" = "هذا البلد موجود في قائمة البلدان المقاطعة";
 "privacyPolicy" = "سياسة الخصوصية";
 "contactUs" = "اتصل بنا";
-"scanTipTapToFocus" = "إذا كان المسح بطيئًا، انقر على الشاشة للتركيز"; 
+"scanTipTapToFocus" = "إذا كان المسح بطيئًا، انقر على الشاشة للتركيز";
+"purchaseMoreScans" = "شراء المزيد من عمليات المسح"; 
