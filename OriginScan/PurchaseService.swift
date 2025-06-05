@@ -34,7 +34,7 @@ class PurchaseService: ObservableObject {
     }
     
     func useScan(barcode: String) {
-        ScanHistoryService.shared.reduceScanCountIfNeeded(barcode: barcode)
+        // Scan count reduction is now handled in ScanHistoryService.add(item:)
     }
     
     private func listenForTransactions() async {
@@ -83,6 +83,12 @@ class PurchaseService: ObservableObject {
         }
         
         isPurchasing = false
+    }
+    
+    func decrementScanCount() {
+        remainingScans -= 1
+        userDefaults.set(remainingScans, forKey: "remainingScans")
+        print("[PurchaseService] remainingScans decremented. New value: \(remainingScans)")
     }
 }
 

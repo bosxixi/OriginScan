@@ -30,9 +30,10 @@ class ScanHistoryService: ObservableObject {
         load()
     }
     
+    @MainActor
     func add(item: ScanHistoryItem) {
         if let first = items.first, first.barcode == item.barcode {
-            // Update scanDate of the last item
+            print("[ScanHistoryService] Barcode already exists, updating scanDate: \(first.barcode)")
             items[0] = ScanHistoryItem(
                 countryCode: first.countryCode,
                 countryName: first.countryName,
@@ -42,11 +43,16 @@ class ScanHistoryService: ObservableObject {
                 scanDate: item.scanDate
             )
         } else {
-            items.insert(item, at: 0)
-            Task { @MainActor in
-                reduceScanCountIfNeeded(barcode: item.barcode)
+            let isNewBarcode = !items.contains { $0.barcode == item.barcode }
+            if isNewBarcode {
+                print("[ScanHistoryService] New barcode detected: \(item.barcode). Reducing scan count.")
+                PurchaseService.shared.decrementScanCount()
+            } else {
+                print("[ScanHistoryService] Barcode already in history: \(item.barcode)")
             }
+            items.insert(item, at: 0)
         }
+        print("[ScanHistoryService] Current scan count: \(PurchaseService.shared.remainingScans)")
         save()
     }
     
@@ -65,17 +71,6 @@ class ScanHistoryService: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
            let decoded = try? JSONDecoder().decode([ScanHistoryItem].self, from: data) {
             items = decoded
-        }
-    }
-    
-    @MainActor
-    func reduceScanCountIfNeeded(barcode: String) {
-        // Only reduce scan count if this is a new barcode
-        let hasBeenScanned = items.contains { $0.barcode == barcode }
-        if !hasBeenScanned {
-            let purchaseService = PurchaseService.shared
-            purchaseService.remainingScans -= 1
-            UserDefaults.standard.set(purchaseService.remainingScans, forKey: "remainingScans")
         }
     }
 } 
