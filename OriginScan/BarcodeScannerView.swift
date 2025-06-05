@@ -496,11 +496,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     private func processScannedCode(_ stringValue: String) {
+        // Play beep sound
+        AudioServicesPlaySystemSound(1057) // System beep sound
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         scannedCode = stringValue
         isPresented = false
         stopScanTimeoutTimer()
-        
         // Automatically trigger search after scanning
         if !stringValue.isEmpty {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
