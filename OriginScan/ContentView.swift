@@ -90,12 +90,10 @@ struct ContentView: View {
                     showPurchaseView = true
                 }
             }) {
-                Image(systemName: "barcode.viewfinder")
+                Image("appstore")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 80)
-                    .foregroundColor(.accentColor)
-                    .scaleEffect(x: 20 / 8, y: 1, anchor: .center)
+                    .frame(width: 300, height: 150).scaleEffect(x: 30 / 15, y: 1, anchor: .center)
                     .clipped()
             }
             .onAppear {
