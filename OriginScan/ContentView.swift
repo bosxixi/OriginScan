@@ -93,9 +93,10 @@ struct ContentView: View {
                 Image(systemName: "barcode.viewfinder")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 120, height: 120)
+                    .frame(width: 200, height: 80)
                     .foregroundColor(.accentColor)
-                    .padding(.top, 40)
+                    .scaleEffect(x: 20 / 8, y: 1, anchor: .center)
+                    .clipped()
             }
             .onAppear {
                 LogService.shared.logImpression(itemId: "scanButton", itemType: "scan")
